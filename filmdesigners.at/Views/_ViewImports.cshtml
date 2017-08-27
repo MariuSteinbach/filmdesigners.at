@@ -3,4 +3,8 @@
 @using filmdesigners.at.Models
 @using filmdesigners.at.Models.AccountViewModels
 @using filmdesigners.at.Models.ManageViewModels
+@using filmdesigners.at.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IAuthorizationService AuthorizationService

@@ -1,0 +1,55 @@
+﻿@model filmdesigners.at.Models.Member
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Member</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+@if(Model.Status != MemberStatus.Approved)
+{
+    @if(AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Approve).Result.Succeeded)
+    {
+        <form asp-action="SetStatus" asp-controller="Members" style="display:inline;">
+            <input type="hidden" name="id" value="@Model.MemberId" />
+            <input type="hidden" name="status" value="@filmdesigners.at.Models.MemberViewModels.MemberStatus.Approved" />
+            <button type="submit" class="btn btn-xs btn-success">Approve</button>
+        </form>
+    }
+}
+@if(Model.Status != MemberStatus.Rejected)
+{
+    @if (AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Reject).Result.Succeeded)
+    {
+        <form asp-action="SetStatus" asp-controller="Contacts" style="display:inline;">
+            <input type="hidden" name="id" value="@Model.MemberId" />
+            <input type="hidden" name="status" value="@filmdesigners.at.Models.MemberViewModels.MemberStatus.Rejected" />
+            <button type="submit" class="btn btn-xs btn-danger">Reject</button>
+        </form>
+    }
+}
+<div>
+@if(AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Update).Result.Succeeded)
+{
+    <a asp-action="Edit" asp-route-id="@Model.MemberId">Edit</a> <text>|</text>
+}
+    <a asp-action="Index">Back to List</a>
+</div>
