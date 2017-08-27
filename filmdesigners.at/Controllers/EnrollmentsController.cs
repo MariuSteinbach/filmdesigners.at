@@ -49,8 +49,8 @@ namespace filmdesigners.at.Controllers
         // GET: Enrollments/Create
         public IActionResult Create()
         {
-            ViewData["MemberID"] = new SelectList(_context.Member, "MemberId", "MemberId");
-            ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "ProjectID");
+            ViewData["MemberID"] = new SelectList(_context.Member, "MemberId", "Name");
+            ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "Name");
             return View();
         }
 
