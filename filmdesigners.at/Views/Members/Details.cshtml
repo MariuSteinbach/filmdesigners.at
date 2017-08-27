@@ -39,7 +39,7 @@
 {
     @if (AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Reject).Result.Succeeded)
     {
-        <form asp-action="SetStatus" asp-controller="Contacts" style="display:inline;">
+        <form asp-action="SetStatus" asp-controller="Members" style="display:inline;">
             <input type="hidden" name="id" value="@Model.MemberId" />
             <input type="hidden" name="status" value="@filmdesigners.at.Models.MemberViewModels.MemberStatus.Rejected" />
             <button type="submit" class="btn btn-xs btn-danger">Reject</button>

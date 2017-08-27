@@ -13,6 +13,8 @@ namespace filmdesigners.at.Models
 
         public string Name { get; set; }
         public MemberStatus Status { get; set; }
+
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 
     public enum MemberStatus

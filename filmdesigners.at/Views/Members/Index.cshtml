@@ -31,10 +31,10 @@
             {
                 <a asp-action="Edit" asp-route-id="@item.MemberId">Edit</a><text> | </text>
             }
-                <a asp-action="Details" asp-route-id="@item.MemberId">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.MemberId">Details</a>
             @if (AuthorizationService.AuthorizeAsync(User, item, MemberOperations.Delete).Result.Succeeded)
             {
-                <a asp-action="Delete" asp-route-id="@item.MemberId">Delete</a>
+                <text> | </text><a asp-action="Delete" asp-route-id="@item.MemberId">Delete</a>
             }
             </td>
         </tr>

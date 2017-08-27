@@ -12,5 +12,7 @@ namespace filmdesigners.at.Models
         public int OwnerID { get; set; }
 
         public string Name { get; set; }
+
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 }
