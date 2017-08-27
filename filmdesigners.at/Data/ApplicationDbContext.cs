@@ -26,5 +26,7 @@ namespace filmdesigners.at.Data
         public DbSet<filmdesigners.at.Models.Member> Member { get; set; }
 
         public DbSet<filmdesigners.at.Models.Project> Project { get; set; }
+
+        public DbSet<filmdesigners.at.Models.Enrollment> Enrollment { get; set; }
     }
 }

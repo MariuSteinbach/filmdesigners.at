@@ -22,6 +22,28 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Enrollments)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Job</th>
+                    <th>Member</th>
+                </tr>
+            @foreach(var item in Model.Enrollments ?? Enumerable.Empty<Enrollment>())
+            {
+                <tr>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Job)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Member.Name)
+                    </td>
+                </tr>
+            }
+            </table>
+        </dd>
     </dl>
 </div>
 <div>

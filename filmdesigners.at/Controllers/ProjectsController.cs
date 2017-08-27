@@ -34,6 +34,9 @@ namespace filmdesigners.at.Controllers
             }
 
             var project = await _context.Project
+                .Include(m => m.Enrollments)
+                .ThenInclude(e => e.Member)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ProjectID == id);
             if (project == null)
             {
