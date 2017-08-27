@@ -62,14 +62,12 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(MemberEditViewModel editModel)
+        public async Task<IActionResult> Create(Member member)
         {
             if (!ModelState.IsValid)
             {
-                return View(editModel);
+                return View(member);
             }
-
-            var member = ViewModel_to_model(new Member(), editModel);
 
             member.OwnerID = _userManager.GetUserId(User);
 
