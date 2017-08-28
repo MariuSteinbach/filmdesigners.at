@@ -43,6 +43,9 @@ namespace filmdesigners.at.Controllers
                 return NotFound();
             }
 
+            ViewData["MemberID"] = new SelectList(_context.Member, "MemberId", "Name");
+            ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "Name");
+
             return View(project);
         }
 
