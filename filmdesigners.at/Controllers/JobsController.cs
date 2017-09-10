@@ -54,7 +54,7 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobId,Name")] Job job)
+        public async Task<IActionResult> Create([Bind("JobId,Name,Description")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("JobId,Name")] Job job)
+        public async Task<IActionResult> Edit(int id, [Bind("JobId,Name,Description")] Job job)
         {
             if (id != job.JobId)
             {
