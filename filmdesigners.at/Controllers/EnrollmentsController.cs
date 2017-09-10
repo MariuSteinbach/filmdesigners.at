@@ -61,7 +61,7 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EnrollmentID,ProjectID,MemberID,Job")] Enrollment enrollment)
+        public async Task<IActionResult> Create(Enrollment enrollment)
         {
             if (ModelState.IsValid)
             {

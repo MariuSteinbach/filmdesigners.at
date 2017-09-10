@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="Enrollment" asp-action="Create">
+        <form asp-controller="Enrollments" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProjectID" class="control-label"></label>
@@ -21,8 +21,8 @@
                 <select asp-for="MemberID" class ="form-control" asp-items="ViewBag.MemberID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="JobID" class="control-label"></label>
-                <select asp-for="JobID" class="form-control" asp-items="ViewBag.JobID"></select>
+                <label asp-for="JobId" class="control-label"></label>
+                <select asp-for="JobId" class="form-control" asp-items="ViewBag.JobID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
