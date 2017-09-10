@@ -12,9 +12,10 @@ using System;
 namespace filmdesigners.at.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170828160012_JobModel")]
+    partial class JobModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,13 +78,15 @@ namespace filmdesigners.at.Data.Migrations
                     b.Property<int>("EnrollmentID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("JobID");
+                    b.Property<int?>("JobId");
 
                     b.Property<int>("MemberID");
 
                     b.Property<int>("ProjectID");
 
                     b.HasKey("EnrollmentID");
+
+                    b.HasIndex("JobId");
 
                     b.HasIndex("MemberID");
 
@@ -244,6 +247,10 @@ namespace filmdesigners.at.Data.Migrations
 
             modelBuilder.Entity("filmdesigners.at.Models.Enrollment", b =>
                 {
+                    b.HasOne("filmdesigners.at.Models.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId");
+
                     b.HasOne("filmdesigners.at.Models.Member", "Member")
                         .WithMany("Enrollments")
                         .HasForeignKey("MemberID")

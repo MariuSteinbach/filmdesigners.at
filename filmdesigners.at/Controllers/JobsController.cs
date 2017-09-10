@@ -10,22 +10,22 @@ using filmdesigners.at.Models;
 
 namespace filmdesigners.at.Controllers
 {
-    public class ProjectsController : Controller
+    public class JobsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProjectsController(ApplicationDbContext context)
+        public JobsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Projects
+        // GET: Jobs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Project.ToListAsync());
+            return View(await _context.Job.ToListAsync());
         }
 
-        // GET: Projects/Details/5
+        // GET: Jobs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,46 +33,39 @@ namespace filmdesigners.at.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Project
-                .Include(m => m.Enrollments)
-                .ThenInclude(e => e.Member)
-                .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.ProjectID == id);
-            if (project == null)
+            var job = await _context.Job
+                .SingleOrDefaultAsync(m => m.JobId == id);
+            if (job == null)
             {
                 return NotFound();
             }
 
-            ViewData["MemberID"] = new SelectList(_context.Member, "MemberId", "Name");
-            ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "Name");
-            ViewData["JobID"] = new SelectList(_context.Job, "JobId", "Name");
-
-            return View(project);
+            return View(job);
         }
 
-        // GET: Projects/Create
+        // GET: Jobs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Projects/Create
+        // POST: Jobs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProjectID,OwnerID,Name")] Project project)
+        public async Task<IActionResult> Create([Bind("JobId,Name")] Job job)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(project);
+                _context.Add(job);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(project);
+            return View(job);
         }
 
-        // GET: Projects/Edit/5
+        // GET: Jobs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,22 +73,22 @@ namespace filmdesigners.at.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Project.SingleOrDefaultAsync(m => m.ProjectID == id);
-            if (project == null)
+            var job = await _context.Job.SingleOrDefaultAsync(m => m.JobId == id);
+            if (job == null)
             {
                 return NotFound();
             }
-            return View(project);
+            return View(job);
         }
 
-        // POST: Projects/Edit/5
+        // POST: Jobs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjectID,OwnerID,Name")] Project project)
+        public async Task<IActionResult> Edit(int id, [Bind("JobId,Name")] Job job)
         {
-            if (id != project.ProjectID)
+            if (id != job.JobId)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace filmdesigners.at.Controllers
             {
                 try
                 {
-                    _context.Update(project);
+                    _context.Update(job);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProjectExists(project.ProjectID))
+                    if (!JobExists(job.JobId))
                     {
                         return NotFound();
                     }
@@ -120,10 +113,10 @@ namespace filmdesigners.at.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(project);
+            return View(job);
         }
 
-        // GET: Projects/Delete/5
+        // GET: Jobs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,30 +124,30 @@ namespace filmdesigners.at.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Project
-                .SingleOrDefaultAsync(m => m.ProjectID == id);
-            if (project == null)
+            var job = await _context.Job
+                .SingleOrDefaultAsync(m => m.JobId == id);
+            if (job == null)
             {
                 return NotFound();
             }
 
-            return View(project);
+            return View(job);
         }
 
-        // POST: Projects/Delete/5
+        // POST: Jobs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var project = await _context.Project.SingleOrDefaultAsync(m => m.ProjectID == id);
-            _context.Project.Remove(project);
+            var job = await _context.Job.SingleOrDefaultAsync(m => m.JobId == id);
+            _context.Job.Remove(job);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProjectExists(int id)
+        private bool JobExists(int id)
         {
-            return _context.Project.Any(e => e.ProjectID == id);
+            return _context.Job.Any(e => e.JobId == id);
         }
     }
 }

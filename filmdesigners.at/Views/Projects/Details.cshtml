@@ -42,8 +42,29 @@
                     </td>
                 </tr>
             }
-            </table>
+            </table>        
         </dd>
+        <dt>@Html.DisplayNameFor(model => model.Enrollments)</dt>
+        <dt>
+            <form asp-controller="Enrollments" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ProjectID" class="control-label"></label>
+                    <select asp-for="ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ViewBag.MemberID" class="control-label"></label>
+                    <select asp-for="MemberID" class="form-control" asp-items="ViewBag.MemberID"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JobId" class="control-label"></label>
+                    <select asp-for="JobId" class="form-control" asp-items="ViewBag.JobId"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </dt>
     </dl>
 </div>
 <div>
