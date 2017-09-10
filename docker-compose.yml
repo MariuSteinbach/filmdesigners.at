@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  filmdesigners.at:
+    image: filmdesigners.at
+    build:
+      context: ./filmdesigners.at
+      dockerfile: Dockerfile

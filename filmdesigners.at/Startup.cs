@@ -95,8 +95,12 @@ namespace filmdesigners.at
 
             if(string.IsNullOrEmpty(AdminUserPW))
             {
+                /*
                 throw new SystemException("Use Secret Manager Tool to set SeedUserPW. \n" +
                     "dotnet user-secrets set SeedUserPW <PW>");
+                    */
+
+                AdminUserPW = "123..abc";
             }
             /*
             try
