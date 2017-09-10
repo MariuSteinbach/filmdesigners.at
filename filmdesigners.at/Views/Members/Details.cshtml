@@ -11,10 +11,172 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.OwnerID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OwnerID)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Male)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Male)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ZIP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ZIP)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Website)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fax)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fax)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherContact)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherContact)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Birthday)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Deathday)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Deathday)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Picture)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Picture)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Languages)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Languages)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InternationalExperiences)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InternationalExperiences)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Education)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Education)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activities)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activities)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Galleries)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Galleries)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Awards)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Awards)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EMail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EMail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Locked)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Locked)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Resigned)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Resigned)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Paused)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Paused)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdate)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Status)
@@ -22,60 +184,9 @@
         <dd>
             @Html.DisplayFor(model => model.Status)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Enrollments)
-        </dt>
-        <dd>
-            <table class="table">
-                <tr>
-                    <th>
-                        Project
-                    </th>
-                    <th>
-                        Job
-                    </th>
-                </tr>
-            @foreach(var item in Model.Enrollments ?? Enumerable.Empty<Enrollment>())
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Project.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Job)
-                    </td>
-                </tr>
-            }
-            </table>
-        </dd>
     </dl>
 </div>
-@if(Model.Status != MemberStatus.Approved)
-{
-    @if(AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Approve).Result.Succeeded)
-    {
-        <form asp-action="SetStatus" asp-controller="Members" style="display:inline;">
-            <input type="hidden" name="id" value="@Model.MemberId" />
-            <input type="hidden" name="status" value="@filmdesigners.at.Models.MemberViewModels.MemberStatus.Approved" />
-            <button type="submit" class="btn btn-xs btn-success">Approve</button>
-        </form>
-    }
-}
-@if(Model.Status != MemberStatus.Rejected)
-{
-    @if (AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Reject).Result.Succeeded)
-    {
-        <form asp-action="SetStatus" asp-controller="Members" style="display:inline;">
-            <input type="hidden" name="id" value="@Model.MemberId" />
-            <input type="hidden" name="status" value="@filmdesigners.at.Models.MemberViewModels.MemberStatus.Rejected" />
-            <button type="submit" class="btn btn-xs btn-danger">Reject</button>
-        </form>
-    }
-}
 <div>
-@if(AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Update).Result.Succeeded)
-{
-    <a asp-action="Edit" asp-route-id="@Model.MemberId">Edit</a> <text>|</text>
-}
+    <a asp-action="Edit" asp-route-id="@Model.MemberId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

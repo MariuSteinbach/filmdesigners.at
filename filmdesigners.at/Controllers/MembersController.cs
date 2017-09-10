@@ -82,8 +82,8 @@ namespace filmdesigners.at.Controllers
             }
 
             _context.Add(member);
-            await _context.SaveChangesAsync();
 
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -100,6 +100,7 @@ namespace filmdesigners.at.Controllers
             {
                 return NotFound();
             }
+
             var isAuthorized = await _authorizationService.AuthorizeAsync(User, member, MemberOperations.Update);
 
             if(!isAuthorized.Succeeded)
@@ -122,7 +123,7 @@ namespace filmdesigners.at.Controllers
                 return View(editModel);
             }
 
-            // Fetch Member from DB to get OwnerID
+            // Get Member from DB to get OwnerID
             var member = await _context.Member.SingleOrDefaultAsync(m => m.MemberId == id);
             if(member == null)
             {
@@ -136,23 +137,23 @@ namespace filmdesigners.at.Controllers
                 return new ChallengeResult();
             }
 
-            member = ViewModel_to_model(member, editModel);
+            member = viewModel2Model(member, editModel);
 
-            if (member.Status == Models.MemberStatus.Approved)
+            if(member.Status == Models.MemberStatus.Approved)
             {
-                // if the member is updated after the approval,
-                // and the user cannot approve, set the status back to submitted
+                // If the Model was updated after the approval,
+                // and the user cannpt approve, set the status back to submitted.
                 var canApprove = await _authorizationService.AuthorizeAsync(User, member, MemberOperations.Approve);
 
-                if (!canApprove.Succeeded)
+                if(!canApprove.Succeeded)
                 {
                     member.Status = Models.MemberStatus.Submitted;
                 }
             }
-                _context.Update(member);
-                await _context.SaveChangesAsync();
+            _context.Update(member);
+            await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         // GET: Members/Delete/5
@@ -196,29 +197,31 @@ namespace filmdesigners.at.Controllers
 
             _context.Member.Remove(member);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        // POST: Members/SetState/5
+        // POST: Members/SetStatus/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SetStatus(int id, Models.MemberStatus status)
         {
             var member = await _context.Member.SingleOrDefaultAsync(m => m.MemberId == id);
 
-            var contactOperation = (status == Models.MemberStatus.Approved) ? MemberOperations.Approve
-                                                                      : MemberOperations.Reject;
+            var memberOperation = (status == Models.MemberStatus.Approved) ? MemberOperations.Approve : MemberOperations.Reject;
 
-            var isAuthorized = await _authorizationService.AuthorizeAsync(User, member,
-                                        contactOperation);
-            if (!isAuthorized.Succeeded)
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, member, memberOperation);
+
+            if(!isAuthorized.Succeeded)
             {
                 return new ChallengeResult();
             }
+
             member.Status = status;
+
             _context.Member.Update(member);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+
         }
 
         private bool MemberExists(int id)
@@ -226,21 +229,32 @@ namespace filmdesigners.at.Controllers
             return _context.Member.Any(e => e.MemberId == id);
         }
 
-        private Member ViewModel_to_model(Member member, MemberEditViewModel editModel)
+        private Member viewModel2Model(Member member, MemberEditViewModel editViewModel)
         {
-            member.Name = editModel.Name;
+            member.Name = editViewModel.Name;
+            member.Male = editViewModel.Male;
+            member.Street = editViewModel.Street;
+            member.ZIP = editViewModel.ZIP;
+            member.City = editViewModel.City;
+            member.Country = editViewModel.Country;
+            member.Website = editViewModel.Website;
+            member.Fax = editViewModel.Fax;
+            member.Mobile = editViewModel.Mobile;
+            member.Phone = editViewModel.Phone;
+            member.OtherContact = editViewModel.OtherContact;
+            member.Birthday = editViewModel.Birthday;
+            member.Deathday = editViewModel.Deathday;
+            member.Picture = editViewModel.Picture;
+            member.Languages = editViewModel.Languages;
+            member.InternationalExperiences = editViewModel.InternationalExperiences;
+            member.Education = editViewModel.Education;
+            member.Activities = editViewModel.Activities;
+            member.Galleries = editViewModel.Galleries;
+            member.Awards = editViewModel.Awards;
+            member.Notes = editViewModel.Notes;
+            member.EMail = editViewModel.EMail;
 
             return member;
-        }
-
-        private MemberEditViewModel Model_to_viewModel(Member member)
-        {
-            var editModel = new MemberEditViewModel();
-
-            editModel.MemberId = member.MemberId;
-            editModel.Name = member.Name;
-
-            return editModel;
         }
     }
 }
