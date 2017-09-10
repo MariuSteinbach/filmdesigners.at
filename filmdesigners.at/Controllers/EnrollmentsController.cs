@@ -51,6 +51,8 @@ namespace filmdesigners.at.Controllers
         {
             ViewData["MemberID"] = new SelectList(_context.Member, "MemberId", "Name");
             ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "Name");
+            ViewData["JobID"] = new SelectList(_context.Job, "JobId", "Name");
+
             return View();
         }
 
