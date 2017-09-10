@@ -10,5 +10,6 @@ namespace filmdesigners.at.Models
         public int JobId { get; set; }
 
         public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
