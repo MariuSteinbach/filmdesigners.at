@@ -187,6 +187,28 @@
     </dl>
     @Html.Partial("~/Views/Enrollments/Create.cshtml", new Enrollment())
 </div>
+@if (Model.Status != MemberStatus.Approved)
+{
+    @if (AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Approve).Result.Succeeded)
+    {
+        <form asp-action="SetStatus" asp-controller="Members" style="display:inline;">
+            <input type="hidden" name="id" value="@Model.MemberId" />
+            <input type="hidden" name="status" value="@MemberStatus.Approved" />
+            <button type="submit" class="btn btn-xs btn-success">Approve</button>
+        </form>
+    }
+}
+@if (Model.Status != MemberStatus.Rejected)
+{
+    @if (AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Reject).Result.Succeeded)
+    {
+        <form asp-action="SetStatus" asp-controller="Members" style="display:inline;">
+            <input type="hidden" name="id" value="@Model.MemberId" />
+            <input type="hidden" name="status" value="@MemberStatus.Rejected" />
+            <button type="submit" class="btn btn-xs btn-danger">Reject</button>
+        </form>
+    }
+}
 <div>
     <a asp-action="Edit" asp-route-id="@Model.MemberId">Edit</a> |
     <a asp-action="Index">Back to List</a>

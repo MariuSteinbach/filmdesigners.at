@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using filmdesigners.at.Authorization;
 using filmdesigners.at.Models.MemberViewModels;
+using filmdesigners.at.Services;
 
 namespace filmdesigners.at.Controllers
 {
@@ -19,12 +20,14 @@ namespace filmdesigners.at.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IAuthorizationService _authorizationService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
 
-        public MembersController(ApplicationDbContext context, IAuthorizationService authorizationService, UserManager<ApplicationUser> userManager)
+        public MembersController(ApplicationDbContext context, IAuthorizationService authorizationService, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
             _context = context;
             _authorizationService = authorizationService;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         // GET: Members
@@ -87,6 +90,10 @@ namespace filmdesigners.at.Controllers
             _context.Add(member);
 
             await _context.SaveChangesAsync();
+
+            await _emailSender.SendEmailAsync("m@steinbach.io", "New Member",
+                   $"Please approve or reject the new Member " + member.Name + ".");
+
             return RedirectToAction("Index");
         }
 

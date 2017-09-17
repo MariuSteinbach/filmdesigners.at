@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using filmdesigners.at.Models;
 using filmdesigners.at.Models.AccountViewModels;
 using filmdesigners.at.Services;
+using filmdesigners.at.Data;
 
 namespace filmdesigners.at.Controllers
 {
@@ -24,17 +25,20 @@ namespace filmdesigners.at.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [TempData]
@@ -354,7 +358,7 @@ namespace filmdesigners.at.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{userId}'.");
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            return View(result.Succeeded ? "Members/Create" : "Error");
         }
 
         [HttpGet]
