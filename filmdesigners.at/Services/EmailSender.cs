@@ -39,5 +39,24 @@ namespace filmdesigners.at.Services
 
             return client.SendEmailAsync(msg);
         }
+
+        public Task SendRegisterMail(string email, string callBackUrl)
+        {
+            var mail = new SendGridMessage
+            {
+                From = new EmailAddress("noreply@filmdesigners.at", "VÖF"),
+                Subject = "E-Mail-Adresse Bestätigen",
+                PlainTextContent = string.Empty,
+                HtmlContent = "<p></p>"
+            };
+
+            var client = new SendGridClient(Options.SendGridKey);
+            
+            mail.AddTo(new EmailAddress(email));
+            mail.SetTemplateId("2a1d782e-aba5-4478-9b37-827e1f29696d");
+            mail.AddSubstitution("-confirmationlink-", callBackUrl);
+
+            return client.SendEmailAsync(mail);
+        }
     }
 }

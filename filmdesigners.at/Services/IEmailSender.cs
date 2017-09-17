@@ -8,5 +8,6 @@ namespace filmdesigners.at.Services
     public interface IEmailSender
     {
         Task SendEmailAsync(string email, string subject, string message);
+        Task SendRegisterMail(string email, string callBackUrl);
     }
 }

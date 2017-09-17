@@ -234,8 +234,20 @@ namespace filmdesigners.at.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+                var member = new Member
+                {
+                    Name = model.Name,
+                    ZIP = 0,
+                    EMail = model.Email,
+                    Status = MemberStatus.Submitted
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -243,6 +255,14 @@ namespace filmdesigners.at.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                    // await _emailSender.SendRegisterMail(model.Email, callbackUrl);
+
+                    var userID = await _userManager.FindByEmailAsync(model.Email);
+
+                    member.OwnerID = userID.Id;
+
+                    _context.Add(member);
+                    await _context.SaveChangesAsync();
 
                     // Wait for confirmation of email
                     // await _signInManager.SignInAsync(user, isPersistent: false);
