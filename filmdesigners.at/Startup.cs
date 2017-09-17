@@ -14,6 +14,8 @@ using filmdesigners.at.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using filmdesigners.at.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace filmdesigners.at
 {
@@ -29,13 +31,23 @@ namespace filmdesigners.at
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            // Require SSL
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
+
             //add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
@@ -48,6 +60,8 @@ namespace filmdesigners.at
 
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             //AuthorizationHandlers
             services.AddScoped<IAuthorizationHandler, MemberIsOwnerAuthorizationHandler>();
@@ -105,17 +119,23 @@ namespace filmdesigners.at
             /*
             try
             {*/
-                //SeedMembers.Initialize(app.ApplicationServices, "").Wait();
-                /*
-            }
-            catch
-            {
-                throw new SystemException("You need to update the Database "
-                    + "\nPM Update-Database " + "\n or \n" +
-                    ">dotnet ef database update"
-                    + "\nIf that doesn't work, comment out SeedMembers and register a new User.");
-            }
-            */
+            //SeedMembers.Initialize(app.ApplicationServices, "").Wait();
+            /*
+        }
+        catch
+        {
+            throw new SystemException("You need to update the Database "
+                + "\nPM Update-Database " + "\n or \n" +
+                ">dotnet ef database update"
+                + "\nIf that doesn't work, comment out SeedMembers and register a new User.");
+        }
+        */
+
+            // Redirect HTTP to HTTPS
+            var options = new RewriteOptions()
+                .AddRedirectToHttps();
+
+            app.UseRewriter(options);
         }
     }
 }
