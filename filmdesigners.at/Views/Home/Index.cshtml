@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<filmdesigners.at.Models.Chapter>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -23,4 +25,14 @@
             This umbrella association is the only institution in Austria, that administers the needs and interests of film-creatives effectively: Dealing with topics like film funding, labor and social law, ORF, the media sector in Austria, infrastructure, work conditions etc. it represents us and discusses with politicians, ministers, social insurance institutions, unions, producercs and others.
         </p>
     </div>
+    <p>
+        <a asp-action="CreateHomeIndexChapter">Create New</a>
+    </p>
+    @foreach(var item in Model)
+    {
+        <div class="col-md-6">
+            <h2>@item.Heading</h2>
+            <p>@item.Text</p>
+        </div>
+    }
 </div>

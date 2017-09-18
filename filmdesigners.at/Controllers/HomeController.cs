@@ -6,15 +6,42 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using filmdesigners.at.Models;
 using Microsoft.AspNetCore.Authorization;
+using filmdesigners.at.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace filmdesigners.at.Controllers
 {
     [AllowAnonymous] 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Chapter;
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        public IActionResult CreateHomeIndexChapter()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateHomeIndexChapter(Chapter chapter)
+        {
+            if(ModelState.IsValid)
+            {
+                chapter.Page = "HomeIndex";
+                _context.Add(chapter);
+                await _context.SaveChangesAsync();
+                RedirectToAction(nameof(Index));
+            }
+            return View(chapter);
         }
 
         public IActionResult About()
