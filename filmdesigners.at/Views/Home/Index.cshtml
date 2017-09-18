@@ -8,31 +8,19 @@
     <h1>Austrian Filmdesigners Association</h1>
 </div>
 <div class="row">
-    <div class="col-md-6">
-        <h2>Welcome to VÖF</h2>
+    @if (Context.User != null)
+    {
         <p>
-            The Association of Austrian Filmdesigners is a professional association for members of the Art and Costume Department. It was founded 1987 by Production Designers, Costume Designers, Prop Masters and Standby Props, in 1989 the Wardrobers associated themselves. The VÖF is the only independent, self-organised and self-financed representation for these professionals in Austria.
-
-            The VÖF's activity involves also the stimulation of intern communication between it's members and the distribution of information: The exchange of experience or further training, free legal advice, model contracts etc.
-            This homepage is established as information-platform throughout the industry and represents each member with it's own page: actual personal details, cv, filmography and personal gallery.
+            <a asp-action="Create">Create New Block</a>
         </p>
-    </div>
-    <div class="col-md-6">
-        <h2>The VÖF as a member of the Associaton of Austrian Film-Creatives</h2>
-        <p>
-            Together with the Associations for Directors, Cinematographers, Editors, Script Writers, Actors, Location + Set Managers, Sounddesigners and Documentary Films, the VÖF constitutes the <a href="http://www.filmschaffende.at/index8.htm">Association of Austrian Film-Creatives</a> (Dachverband der Österrei- chischen Filmschaffenden : DVF).
-
-            This umbrella association is the only institution in Austria, that administers the needs and interests of film-creatives effectively: Dealing with topics like film funding, labor and social law, ORF, the media sector in Austria, infrastructure, work conditions etc. it represents us and discusses with politicians, ministers, social insurance institutions, unions, producercs and others.
-        </p>
-    </div>
-    <p>
-        <a asp-action="CreateHomeIndexChapter">Create New</a>
-    </p>
+    }
     @foreach(var item in Model)
     {
         <div class="col-md-6">
             <h2>@item.Heading</h2>
             <p>@item.Text</p>
+            <a asp-action="Edit" asp-route-id="@item.ChapterID">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@item.ChapterID">Delete</a>
         </div>
     }
 </div>

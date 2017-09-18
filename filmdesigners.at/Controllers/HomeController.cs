@@ -25,23 +25,102 @@ namespace filmdesigners.at.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        public IActionResult CreateHomeIndexChapter()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateHomeIndexChapter(Chapter chapter)
+        public async Task<IActionResult> Create(Chapter chapter)
         {
             if(ModelState.IsValid)
             {
-                chapter.Page = "HomeIndex";
                 _context.Add(chapter);
                 await _context.SaveChangesAsync();
-                RedirectToAction(nameof(Index));
+                RedirectToAction("Index");
             }
             return View(chapter);
+        }
+
+        // GET: Jobs/Edit/5
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var chapter = await _context.Chapter.SingleOrDefaultAsync(c => c.ChapterID == id);
+            if (chapter == null)
+            {
+                return NotFound();
+            }
+            return View(chapter);
+        }
+
+        // POST: Jobs/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, [Bind("ChapterID,Heading,Text,Page")] Chapter chapter)
+        {
+            if (id != chapter.ChapterID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(chapter);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ChapterExists(chapter.ChapterID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(chapter);
+        }
+
+        // GET: Jobs/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var chapter = await _context.Chapter
+                .SingleOrDefaultAsync(c => c.ChapterID == id);
+            if (chapter == null)
+            {
+                return NotFound();
+            }
+
+            return View(chapter);
+        }
+
+        // POST: Jobs/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var chapter = await _context.Chapter.SingleOrDefaultAsync(c => c.ChapterID == id);
+            _context.Chapter.Remove(chapter);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult About()
@@ -61,6 +140,11 @@ namespace filmdesigners.at.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private bool ChapterExists(string id)
+        {
+            return _context.Chapter.Any(c => c.ChapterID == id);
         }
     }
 }
