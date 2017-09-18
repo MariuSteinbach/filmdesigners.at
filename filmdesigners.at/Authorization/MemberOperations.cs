@@ -52,6 +52,7 @@ namespace filmdesigners.at.Authorization
         public static readonly string MembersAdministratorsRole = "MembersAdministrator";
         public static readonly string MembersManagersRole = "MembersManager";
         public static readonly string ChapterAdministratorsRole = "ChaptersAdministrator";
+        public static readonly string EnrollmentAdministratorsRole = "EnrollmentsAdministrator";
 
     }
 }

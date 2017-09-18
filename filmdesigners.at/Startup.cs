@@ -68,12 +68,17 @@ namespace filmdesigners.at
             services.AddSingleton<IAuthorizationHandler, MemberAdministratorAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, MemberManagerAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, ChapterAdministratorAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, EnrollmentAdministratorAuthorizationHandler>();
+
+
 
             var serviceProvider = services.BuildServiceProvider();
 
             var dbContext = serviceProvider.GetService<ApplicationDbContext>();
 
             SeedMembers.Initialize(serviceProvider, "JQ$uk1n!vs");
+
+
 
             return serviceProvider;
         }
@@ -117,6 +122,8 @@ namespace filmdesigners.at
 
                 AdminUserPW = "123..abc";
             }
+
+            var empty = SeedMembers.EnsureRole(app.ApplicationServices, "bf2a756-3dd4-4883-b2b4-33fdcec9b9d2", Constants.EnrollmentAdministratorsRole);
             /*
             try
             {*/
