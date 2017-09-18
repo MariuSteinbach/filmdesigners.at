@@ -48,11 +48,12 @@ namespace filmdesigners.at.Authorization
         public static readonly string DeleteOperationName = "Delete";
         public static readonly string ApproveOperationName = "Approve";
         public static readonly string RejectOperationName = "Reject";
+        public static readonly string AddUserOperationName = "Add";
+        public static readonly string RemoveUserOperationName = "Remove";
 
         public static readonly string MembersAdministratorsRole = "MembersAdministrator";
         public static readonly string MembersManagersRole = "MembersManager";
         public static readonly string ChapterAdministratorsRole = "ChaptersAdministrator";
         public static readonly string EnrollmentAdministratorsRole = "EnrollmentsAdministrator";
-
     }
 }

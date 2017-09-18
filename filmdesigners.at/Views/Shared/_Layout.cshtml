@@ -36,6 +36,14 @@
                     <li><a asp-area="" asp-controller="Awards" asp-action="Index">Awards</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @if (User.IsInRole("UsersAdministrator"))
+                    {
+                        <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
+                    }
+                    @if (User.IsInRole("RolesAdministrator"))
+                    {
+                        <li><a asp-area="" asp-controller="Roles" asp-action="Index">Roles</a></li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

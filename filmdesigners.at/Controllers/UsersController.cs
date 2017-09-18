@@ -22,5 +22,23 @@ namespace filmdesigners.at.Controllers
             var applicationDbContext = _context.ApplicationUser;
             return View(await applicationDbContext.ToListAsync());
         }
+
+        // GET: Users/Details/5
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.ApplicationUser
+                .SingleOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
     }
 }

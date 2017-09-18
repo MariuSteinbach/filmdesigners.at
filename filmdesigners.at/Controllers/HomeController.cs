@@ -33,6 +33,7 @@ namespace filmdesigners.at.Controllers
         {
             var applicationDbContext = _context.Chapter;
             return View(await applicationDbContext.ToListAsync());
+            
         }
 
         public IActionResult Create()

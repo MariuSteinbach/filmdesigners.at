@@ -1,0 +1,31 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Index</h2>
+@foreach(var item in Model)
+{
+    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    User
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    <a asp-action="Remove" asp-route-id="@item.Id">Remove</a>
+                </td>
+            </tr>
+        </thead>
+    </table>
+}
