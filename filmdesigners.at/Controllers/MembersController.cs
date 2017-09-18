@@ -31,12 +31,14 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Members
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Member.ToListAsync());
         }
 
         // GET: Members/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

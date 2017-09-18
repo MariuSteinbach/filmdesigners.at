@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace filmdesigners.at.Controllers
 {
-    [AllowAnonymous] 
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,6 +18,7 @@ namespace filmdesigners.at.Controllers
         {
             _context = context;
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Chapter;
@@ -123,6 +123,7 @@ namespace filmdesigners.at.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -130,6 +131,7 @@ namespace filmdesigners.at.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -137,6 +139,7 @@ namespace filmdesigners.at.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

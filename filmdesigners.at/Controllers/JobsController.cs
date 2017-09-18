@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using filmdesigners.at.Data;
 using filmdesigners.at.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace filmdesigners.at.Controllers
 {
@@ -20,12 +21,14 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Jobs
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Job.ToListAsync());
         }
 
         // GET: Jobs/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

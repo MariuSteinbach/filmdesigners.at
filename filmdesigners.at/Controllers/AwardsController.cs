@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using filmdesigners.at.Data;
 using filmdesigners.at.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace filmdesigners.at.Controllers
 {
@@ -20,6 +21,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Awards
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Award.Include(a => a.Job).Include(a => a.Member).Include(a => a.Project);
@@ -27,6 +29,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Awards/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
