@@ -24,6 +24,7 @@ namespace filmdesigners.at.Data
             {
                 var adminID = await EnsureUser(serviceProvider, adminPW, "admin@filmdesigners.at");
                 await EnsureRole(serviceProvider, adminID, Constants.MembersAdministratorsRole);
+                await EnsureRole(serviceProvider, adminID, Constants.ChapterAdministratorsRole);
 
                 var uid = await EnsureUser(serviceProvider, adminPW, "manager@filmdesigners.at");
                 await EnsureRole(serviceProvider, adminPW, Constants.MembersManagersRole);

@@ -67,6 +67,7 @@ namespace filmdesigners.at
             services.AddScoped<IAuthorizationHandler, MemberIsOwnerAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, MemberAdministratorAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, MemberManagerAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, ChapterAdministratorAuthorizationHandler>();
 
             var serviceProvider = services.BuildServiceProvider();
 
@@ -106,8 +107,8 @@ namespace filmdesigners.at
             //dotnet user-secrets set SeedUserPW <PW>
 
             var AdminUserPW = Configuration["SeedUserPW"];
-
-            if(string.IsNullOrEmpty(AdminUserPW))
+            
+            if (string.IsNullOrEmpty(AdminUserPW))
             {
                 /*
                 throw new SystemException("Use Secret Manager Tool to set SeedUserPW. \n" +

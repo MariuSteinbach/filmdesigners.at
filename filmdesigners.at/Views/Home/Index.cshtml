@@ -8,7 +8,8 @@
     <h1>Austrian Filmdesigners Association</h1>
 </div>
 <div class="row">
-    @if (Context.User != null)
+
+    @if (AuthorizationService.AuthorizeAsync(User, new Chapter(), ChapterOperations.Create).Result.Succeeded)
     {
         <p>
             <a asp-action="Create">Create New Block</a>
@@ -19,8 +20,15 @@
         <div class="col-md-6">
             <h2>@item.Heading</h2>
             <p>@item.Text</p>
-            <a asp-action="Edit" asp-route-id="@item.ChapterID">Edit</a> |
-            <a asp-action="Delete" asp-route-id="@item.ChapterID">Delete</a>
+            @if (AuthorizationService.AuthorizeAsync(User, item, ChapterOperations.Update).Result.Succeeded)
+            {
+                <a asp-action="Edit" asp-route-id="@item.ChapterID">Edit</a>
+            }
+            @if (AuthorizationService.AuthorizeAsync(User, item, ChapterOperations.Delete).Result.Succeeded)
+            {
+                <text>|</text>
+                <a asp-action="Delete" asp-route-id="@item.ChapterID">Delete</a>
+            }
         </div>
     }
 </div>

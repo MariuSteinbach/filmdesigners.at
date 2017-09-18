@@ -8,15 +8,25 @@ using filmdesigners.at.Models;
 using Microsoft.AspNetCore.Authorization;
 using filmdesigners.at.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using filmdesigners.at.Authorization;
 
 namespace filmdesigners.at.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public HomeController(ApplicationDbContext context)
+        private readonly IAuthorizationService _authorizationService;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public HomeController(
+            ApplicationDbContext context,
+            IAuthorizationService authorizationService,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _authorizationService = authorizationService;
+            _userManager = userManager;
         }
         [AllowAnonymous]
         public async Task<IActionResult> Index()
@@ -28,6 +38,7 @@ namespace filmdesigners.at.Controllers
         public IActionResult Create()
         {
             return View();
+
         }
 
         [HttpPost]
@@ -36,6 +47,12 @@ namespace filmdesigners.at.Controllers
         {
             if(ModelState.IsValid)
             {
+                var isAuthorized = await _authorizationService.AuthorizeAsync(User, chapter, ChapterOperations.Create);
+
+                if (!isAuthorized.Succeeded)
+                {
+                    return new ChallengeResult();
+                }
                 _context.Add(chapter);
                 await _context.SaveChangesAsync();
                 RedirectToAction("Index");
@@ -69,6 +86,13 @@ namespace filmdesigners.at.Controllers
             if (id != chapter.ChapterID)
             {
                 return NotFound();
+            }
+
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, chapter, ChapterOperations.Update);
+
+            if (!isAuthorized.Succeeded)
+            {
+                return new ChallengeResult();
             }
 
             if (ModelState.IsValid)
@@ -118,6 +142,12 @@ namespace filmdesigners.at.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var chapter = await _context.Chapter.SingleOrDefaultAsync(c => c.ChapterID == id);
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, chapter, ChapterOperations.Delete);
+
+            if (!isAuthorized.Succeeded)
+            {
+                return new ChallengeResult();
+            }
             _context.Chapter.Remove(chapter);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
