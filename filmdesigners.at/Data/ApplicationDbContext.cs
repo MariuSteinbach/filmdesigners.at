@@ -30,5 +30,7 @@ namespace filmdesigners.at.Data
         public DbSet<filmdesigners.at.Models.Enrollment> Enrollment { get; set; }
 
         public DbSet<filmdesigners.at.Models.Job> Job { get; set; }
+
+        public DbSet<filmdesigners.at.Models.Award> Award { get; set; }
     }
 }
