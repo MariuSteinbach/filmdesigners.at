@@ -5,7 +5,7 @@
 }
 
 <div class="jumbotron">
-    <h1>Austrian Filmdesigners Association</h1>
+    <h1 class="front-title">Austrian Filmdesigners Association</h1>
 </div>
 <div class="row">
 
@@ -17,7 +17,8 @@
     }
     @foreach(var item in Model)
     {
-        <div class="col-md-6">
+        
+        <div class="col-md-12">
             <h2>@item.Heading</h2>
             <p>@item.Text</p>
             @if (AuthorizationService.AuthorizeAsync(User, item, ChapterOperations.Update).Result.Succeeded)

@@ -1,6 +1,12 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #0e2533;
+    color: #ffffff;
+}
+
+.front-title {
+    color: #161618 !important;
 }
 
 /* Wrapping element */

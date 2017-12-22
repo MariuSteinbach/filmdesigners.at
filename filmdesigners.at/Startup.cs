@@ -31,15 +31,23 @@ namespace filmdesigners.at
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            var hostname = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "localhost";
+            var password = Environment.GetEnvironmentVariable("SQLSERVER_SA_PASSWORD") ?? "123..abc";
+            var connString = $"Data Source={hostname};Initial Catalog=filmdesigners.at;User ID=sa;Password={password};";
+
             // Require SSL
+            // TODO: Enable RequireHttps again (disabled for development on Mac)
             services.Configure<MvcOptions>(options =>
             {
-                options.Filters.Add(new RequireHttpsAttribute());
+                //options.Filters.Add(new RequireHttpsAttribute());
             });
 
             //add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                //Old LocalDB Config
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                // NEW DOCKER SQL SERVER
+                options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
