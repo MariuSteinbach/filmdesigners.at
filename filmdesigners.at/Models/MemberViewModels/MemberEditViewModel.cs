@@ -10,6 +10,8 @@ namespace filmdesigners.at.Models.MemberViewModels
 
         public string OwnerID { get; set; }
 
+        public int JobId { get; set; }
+
         public string Name { get; set; }
         public bool Male { get; set; }
         public string Street { get; set; }

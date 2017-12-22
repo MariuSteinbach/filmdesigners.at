@@ -34,6 +34,8 @@ namespace filmdesigners.at.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            var Jobs = _context.Job.ToArray();
+            ViewData["Jobs"] = Jobs;
             return View(await _context.Member.ToListAsync());
         }
 
@@ -244,6 +246,7 @@ namespace filmdesigners.at.Controllers
         private Member viewModel2Model(Member member, MemberEditViewModel editViewModel)
         {
             member.Name = editViewModel.Name;
+            member.JobId = editViewModel.JobId;
             member.Male = editViewModel.Male;
             member.Street = editViewModel.Street;
             member.ZIP = editViewModel.ZIP;

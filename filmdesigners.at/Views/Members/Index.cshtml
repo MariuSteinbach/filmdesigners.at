@@ -22,7 +22,7 @@
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
-                    Jobs
+                    @Html.DisplayNameFor(model => model.Job)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Mobile)
@@ -63,7 +63,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-
+                @Html.DisplayFor(modelItem => item.Job.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Mobile)
@@ -104,3 +104,5 @@
 }
     </tbody>
 </table>
+
+ViewData

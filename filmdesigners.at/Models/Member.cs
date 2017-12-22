@@ -11,6 +11,8 @@ namespace filmdesigners.at.Models
 
         public string OwnerID { get; set; }
 
+        public int JobId { get; set; }
+
         public string Name { get; set; }
         public bool Male { get; set; }
         public string Street { get; set; }
@@ -45,6 +47,7 @@ namespace filmdesigners.at.Models
         public MemberStatus Status { get; set; }
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }
+        public virtual Job Job { get; set; }
     }
 
     public enum MemberStatus
