@@ -11,6 +11,5 @@ namespace filmdesigners.at.Models
         public string Heading { get; set; }
         public string Text { get; set; }
         public string Page { get; set; }
-        public int Width { get; set; }
     }
 }
