@@ -20,7 +20,7 @@
         
         <div class="col-md-12">
             <h2>@item.Heading</h2>
-            <p>@item.Text</p>
+            <p>@Html.Raw(item.Text)</p>
             @if (AuthorizationService.AuthorizeAsync(User, item, ChapterOperations.Update).Result.Succeeded)
             {
                 <a asp-action="Edit" asp-route-id="@item.ChapterID">Edit</a>
