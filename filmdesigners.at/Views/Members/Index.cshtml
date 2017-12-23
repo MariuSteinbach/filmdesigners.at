@@ -43,7 +43,14 @@
             <tr>
             <td>
                 <a asp-action="Details" asp-route-id="@item.MemberId">
-                    <img src="@item.Picture" />
+                    @if (item.Picture != null)
+                    {
+                        <img src="@item.Picture" />
+                    }
+                    else
+                    {
+                        <img src="~/images/NoImage.png">
+                    }
                 </a>
             </td>
             <td>
