@@ -19,9 +19,10 @@
                 <input asp-for="Heading" class="form-control" />
                 <span asp-validation-for="Heading" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
-                <input asp-for="Text" class="form-control" />
+                <input id="htmlcontent" asp-for="Text" class="form-control" type="hidden"/>
+                <div id="summernote">@Html.Raw(Model.Text)</div>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -37,4 +38,24 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+    <script>
+        $(document).ready(function() {
+          $('#summernote').summernote();
+
+            $('form').submit(function() {
+              // Move cropped image data to hidden input
+              var htmltext = $('#summernote').summernote('code');
+              $('#htmlcontent').val(htmltext);
+              return true;
+            });
+        });
+    </script>
 }

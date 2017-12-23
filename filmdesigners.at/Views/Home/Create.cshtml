@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
-                <input id="htmlcontent" asp-for="Text" class="form-control" />
+                <input id="htmlcontent" asp-for="Text" class="form-control" type="hidden"/>
                 <div id="summernote">Hello Summernote</div>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
@@ -56,8 +56,5 @@
               return true;
             });
         });
-
-   
-        
     </script>
 }

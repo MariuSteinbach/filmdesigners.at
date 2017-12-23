@@ -104,6 +104,10 @@ namespace filmdesigners.at.Controllers
             {
                 try
                 {
+                    var oldchapter = await _context.Chapter
+                       .AsNoTracking()
+                       .SingleOrDefaultAsync(c => c.ChapterID == chapter.ChapterID);
+                    chapter.Created = oldchapter.Created;
                     _context.Update(chapter);
                     await _context.SaveChangesAsync();
                 }
