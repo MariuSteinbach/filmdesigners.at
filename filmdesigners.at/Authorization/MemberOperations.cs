@@ -38,6 +38,11 @@ namespace filmdesigners.at.Authorization
             {
                 Name = Constants.RejectOperationName
             };
+        public static OperationAuthorizationRequirement ReadMemberState =
+            new OperationAuthorizationRequirement
+            {
+                Name = Constants.ReadMemberStateOperationName
+            };
     }
 
     public class Constants
@@ -50,6 +55,7 @@ namespace filmdesigners.at.Authorization
         public static readonly string RejectOperationName = "Reject";
         public static readonly string AddUserOperationName = "Add";
         public static readonly string RemoveUserOperationName = "Remove";
+        public static readonly string ReadMemberStateOperationName = "ReadMemberState"; 
 
         public static readonly string MembersAdministratorsRole = "MembersAdministrator";
         public static readonly string MembersManagersRole = "MembersManager";

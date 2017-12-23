@@ -21,7 +21,8 @@ namespace filmdesigners.at.Authorization
 
             // If not asking for approval/reject, return.
             if (requirement.Name != Constants.ApproveOperationName &&
-                requirement.Name != Constants.RejectOperationName)
+                requirement.Name != Constants.RejectOperationName &&
+                requirement.Name != Constants.ReadMemberStateOperationName)
             {
                 return Task.FromResult(0);
             }
