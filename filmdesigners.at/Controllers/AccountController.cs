@@ -268,7 +268,7 @@ namespace filmdesigners.at.Controllers
                     // Wait for confirmation of email
                     // await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction(nameof(ConfirmEmailNote));
                 }
                 AddErrors(result);
             }
@@ -380,6 +380,13 @@ namespace filmdesigners.at.Controllers
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "Members/Create" : "Error");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmailNote()
+        {
+            return View();
         }
 
         [HttpGet]

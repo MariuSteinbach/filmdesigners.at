@@ -58,7 +58,7 @@ namespace filmdesigners.at.Controllers
                 chapter.Edited = DateTime.Now;
                 _context.Add(chapter);
                 await _context.SaveChangesAsync();
-                RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(chapter);
         }

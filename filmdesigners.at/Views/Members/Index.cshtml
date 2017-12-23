@@ -21,7 +21,7 @@
                 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Job)
+                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mobile)
@@ -68,7 +68,7 @@
                 </a>
             </td>
             <td>
-                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Job.JobId">
+                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@Html.DisplayFor(modelItem => item.Job.JobId)">
                     @Html.DisplayFor(modelItem => item.Job.Name)
                 </a>
             </td>
@@ -91,7 +91,9 @@
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EMail)
+                <a href="mailto:@Html.DisplayFor(modelItem => item.EMail)">
+                    @Html.DisplayFor(modelItem => item.EMail)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
