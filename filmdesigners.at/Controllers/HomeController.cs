@@ -31,7 +31,7 @@ namespace filmdesigners.at.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Chapter;
+            var applicationDbContext = _context.Chapter.OrderByDescending(c => c.Created);
             return View(await applicationDbContext.ToListAsync());
             
         }
@@ -54,6 +54,8 @@ namespace filmdesigners.at.Controllers
                 {
                     return new ChallengeResult();
                 }
+                chapter.Created = DateTime.Now;
+                chapter.Edited = DateTime.Now;
                 _context.Add(chapter);
                 await _context.SaveChangesAsync();
                 RedirectToAction("Index");
@@ -95,6 +97,8 @@ namespace filmdesigners.at.Controllers
             {
                 return new ChallengeResult();
             }
+
+            chapter.Edited = DateTime.Now;
 
             if (ModelState.IsValid)
             {

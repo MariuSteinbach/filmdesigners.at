@@ -11,5 +11,7 @@ namespace filmdesigners.at.Models
         public string Heading { get; set; }
         public string Text { get; set; }
         public string Page { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Edited { get; set; }
     }
 }
