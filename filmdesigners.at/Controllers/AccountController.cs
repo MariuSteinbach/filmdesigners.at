@@ -384,7 +384,7 @@ namespace filmdesigners.at.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmailNote()
+        public IActionResult ConfirmEmailNote()
         {
             return View();
         }
