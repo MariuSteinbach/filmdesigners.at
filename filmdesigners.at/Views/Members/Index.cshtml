@@ -15,10 +15,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Picture)
+                
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Job)
@@ -56,13 +56,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <img src="@item.Picture" >
+                <a asp-action="Details" asp-route-id="@item.MemberId">
+                    <img src="@item.Picture" />
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                <a asp-action="Details" asp-route-id="@item.MemberId">
+                    <h3>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </h3>
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Job.Name)
+                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@item.Job.JobId">
+                    @Html.DisplayFor(modelItem => item.Job.Name)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Mobile)

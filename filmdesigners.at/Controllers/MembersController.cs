@@ -260,7 +260,10 @@ namespace filmdesigners.at.Controllers
             member.OtherContact = editViewModel.OtherContact;
             member.Birthday = editViewModel.Birthday;
             member.Deathday = editViewModel.Deathday;
-            member.Picture = editViewModel.Picture;
+            if(editViewModel.Picture != null)
+            {
+                member.Picture = editViewModel.Picture;
+            }
             member.Languages = editViewModel.Languages;
             member.InternationalExperiences = editViewModel.InternationalExperiences;
             member.Education = editViewModel.Education;
