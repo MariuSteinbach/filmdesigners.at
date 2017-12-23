@@ -30,12 +30,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Members" asp-action="Index">Members</a></li>
-                    <li><a asp-area="" asp-controller="Projects" asp-action="Index">Projects</a></li>
-                    <li><a asp-area="" asp-controller="Members" asp-action="Index">Gallery</a></li>
+                    <li><a asp-area="" asp-controller="Members" asp-action="Index">Mitglieder</a></li>
+                    <li><a asp-area="" asp-controller="Jobs" asp-action="Index">Departments</a></li>
+                    <li><a asp-area="" asp-controller="Projects" asp-action="Index">Projekte</a></li>
+                    <li><a asp-area="" asp-controller="Members" asp-action="Index">Gallerie</a></li>
                     <li><a asp-area="" asp-controller="Awards" asp-action="Index">Awards</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Über Uns</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
+                    @if (User.IsInRole("JobsAdministrator"))
+                    {
+                        <li><a asp-area="" asp-controller="Jobs" asp-action="Index">Jobs</a></li>
+                    }
                     @if (User.IsInRole("UsersAdministrator"))
                     {
                         <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>

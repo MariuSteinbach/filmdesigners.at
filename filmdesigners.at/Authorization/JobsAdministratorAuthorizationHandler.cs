@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace filmdesigners.at.Authorization
 {
-    public class UsersAdministratorAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, ApplicationUser>
+    public class JobsAdministratorAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, ApplicationUser>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, OperationAuthorizationRequirement requirement, ApplicationUser resource)
         {
@@ -18,7 +18,7 @@ namespace filmdesigners.at.Authorization
             }
 
             // Administrators can do anything.
-            if (context.User.IsInRole(Constants.UsersAdministratorsRole))
+            if (context.User.IsInRole(Constants.JobsAdministratorsRole))
             {
                 context.Succeed(requirement);
             }
