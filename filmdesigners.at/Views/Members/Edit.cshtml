@@ -13,10 +13,14 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MemberId" />
-            <div class="form-group">
-                <label asp-for="OwnerID" class="control-label"></label>
-                <input asp-for="OwnerID" class="form-control" />
-                <span asp-validation-for="OwnerID" class="text-danger"></span>
+            <input id="image-data" type="hidden" asp-for="Picture">
+            <div class="image-editor">
+                <input type="file" class="cropit-image-input">
+                <div class="cropit-preview"></div>
+                <div class="image-size-label">
+                    Resize image
+                </div>
+                <input type="range" class="cropit-image-zoom-input">
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -24,9 +28,8 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="JobId" class="control-label"></label>
-                <input asp-for="JobId" class="form-control" />
-                <span asp-validation-for="JobId" class="text-danger"></span>
+                <label asp-for="Job" class="control-label"></label>
+                <select asp-for="JobId" class="form-control" asp-items="ViewBag.JobID"></select>
             </div>
             <div class="form-group">
                 <div class="checkbox">
@@ -181,4 +184,57 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="~/js/jquery.cropit.js"></script>
+    <script>
+        $(document).ready(function() {
+          $(function() {
+            $('.image-editor').cropit();
+            $('form').submit(function() {
+              // Move cropped image data to hidden input
+              var imageData = $('.image-editor').cropit('export');
+              $('#image-data').val(imageData);
+              // Print HTTP request params
+              var formValue = $(this).serialize();
+              $('#result-data').text(formValue);
+              // change to false to Prevent the form from actually submitting
+              return true;
+            });
+          });
+        });
+    </script>
+    <style>
+      .cropit-preview {
+        background-color: #f8f8f8;
+        background-size: cover;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 7px;
+        width: 250px;
+        height: 250px;
+      }
+      .cropit-preview-image-container {
+        cursor: move;
+      }
+      .image-size-label {
+        margin-top: 10px;
+      }
+      input {
+        display: block;
+      }
+      button[type="submit"] {
+        margin-top: 10px;
+      }
+      #result {
+        margin-top: 10px;
+        width: 900px;
+      }
+      #result-data {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+      }
+    </style>
 }

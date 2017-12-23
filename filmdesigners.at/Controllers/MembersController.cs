@@ -122,6 +122,7 @@ namespace filmdesigners.at.Controllers
                 return new ChallengeResult();
             }
 
+            ViewData["JobID"] = new SelectList(_context.Job, "JobId", "Name");
             return View(member);
         }
 
