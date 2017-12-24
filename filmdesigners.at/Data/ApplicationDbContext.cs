@@ -36,5 +36,7 @@ namespace filmdesigners.at.Data
         public DbSet<filmdesigners.at.Models.Chapter> Chapter { get; set; }
 
         public DbSet<filmdesigners.at.Models.ApplicationUser> ApplicationUser { get; set; }
+
+        public DbSet<filmdesigners.at.Models.Event> Event { get; set; }
     }
 }

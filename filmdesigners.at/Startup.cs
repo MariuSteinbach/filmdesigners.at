@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using filmdesigners.at.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using System.Runtime.InteropServices;
 
 namespace filmdesigners.at
 {
@@ -31,10 +32,35 @@ namespace filmdesigners.at
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var hostname = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "localhost";
-            var password = Environment.GetEnvironmentVariable("SQLSERVER_SA_PASSWORD") ?? "123..abc";
-            var connString = $"Data Source={hostname};Initial Catalog=filmdesigners.at;User ID=sa;Password={password};";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                var hostname = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "localhost";
+                var password = Environment.GetEnvironmentVariable("SQLSERVER_SA_PASSWORD") ?? "123..abc";
+                var connString = $"Data Source={hostname};Initial Catalog=filmdesigners.at;User ID=sa;Password={password};";
 
+                //add framework services.
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    //Old LocalDB Config
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                // NEW DOCKER SQL SERVER
+                //options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                // Require SSL
+                // TODO: Enable RequireHttps again (disabled for development on Mac)
+                services.Configure<MvcOptions>(options =>
+                {
+                    options.Filters.Add(new RequireHttpsAttribute());
+                });
+
+                //add framework services.
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    //Old LocalDB Config
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    // NEW DOCKER SQL SERVER
+                    //options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
+            }
             // Require SSL
             // TODO: Enable RequireHttps again (disabled for development on Mac)
             services.Configure<MvcOptions>(options =>
@@ -152,6 +178,21 @@ namespace filmdesigners.at
                 .AddRedirectToHttps();
 
             app.UseRewriter(options);
+        }
+
+        public static OSPlatform GetOSPlatform()
+        {
+            OSPlatform osPlatform = OSPlatform.Create("Other Platform");
+            // Check if it's windows 
+            bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+            osPlatform = isWindows ? OSPlatform.Windows : osPlatform;
+            // Check if it's osx 
+            bool isOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+            osPlatform = isOSX ? OSPlatform.OSX : osPlatform;
+            // Check if it's Linux 
+            bool isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+            osPlatform = isLinux ? OSPlatform.Linux : osPlatform;
+            return osPlatform;
         }
     }
 }
