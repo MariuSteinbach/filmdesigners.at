@@ -172,7 +172,9 @@ namespace filmdesigners.at.Data
                     context.Add(WeitereFirmen);
                     context.Add(VFX);
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
+
+                    await SeedMembers.Initialize(serviceProvider);
                 }
             }
         }

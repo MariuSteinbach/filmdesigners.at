@@ -26,6 +26,7 @@ namespace filmdesigners.at.Data
                 {
                     var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
 
+                    // Seed Management Board ApplicationUsers
                     var BirgitHutter = new ApplicationUser
                     {
                         Email = "hutterbirgit@gmail.com",
@@ -107,8 +108,48 @@ namespace filmdesigners.at.Data
                     await userManager.CreateAsync(HannesSalat, "123..Abc");
                     await userManager.CreateAsync(DanielSteinbach, "123..Abc");
                     await userManager.CreateAsync(ThomasVogel, "123..Abc");
+
+                    // Seed Service Users
+                    var Admin = new ApplicationUser
+                    {
+                        Email = "admin@filmdesigners.at",
+                        EmailConfirmed = true,
+                        LockoutEnabled = true,
+                        UserName = "admin@filmdesigners.at"
+                    };
+
+                    await userManager.CreateAsync(Admin, "123..Abc");
+
+                    // Assign Users to Roles
+                    await EnsureRole(serviceProvider, Admin.Id, Constants.MembersAdministratorsRole);
+                    await EnsureRole(serviceProvider, Admin.Id, Constants.ChapterAdministratorsRole);
+                    await EnsureRole(serviceProvider, Admin.Id, Constants.EnrollmentAdministratorsRole);
+                    await EnsureRole(serviceProvider, Admin.Id, Constants.RolesAdministratorsRole);
+                    await EnsureRole(serviceProvider, Admin.Id, Constants.UsersAdministratorsRole);
+                    await EnsureRole(serviceProvider, Admin.Id, Constants.JobsAdministratorsRole);
+                    await SeedJobs.Initialize(serviceProvider);
                 }
             }
+        }
+
+        public static async Task<IdentityResult> EnsureRole(IServiceProvider serviceProvider, string UserID, string Role)
+        {
+            IdentityResult IR = null;
+
+            var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+
+            if (!await roleManager.RoleExistsAsync(Role))
+            {
+                IR = await roleManager.CreateAsync(new IdentityRole(Role));
+            }
+
+            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+
+            var user = await userManager.FindByIdAsync(UserID);
+
+            IR = await userManager.AddToRoleAsync(user, Role);
+
+            return IR;
         }
     }
 }

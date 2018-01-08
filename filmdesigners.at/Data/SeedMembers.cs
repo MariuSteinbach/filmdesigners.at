@@ -16,92 +16,388 @@ namespace filmdesigners.at.Data
 {
     public class SeedMembers
     {
-        #region snippet_Initialize
-        public static async Task Initialize(IServiceProvider serviceProvider, string adminPW)
+        public static async Task Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                var adminID = await EnsureUser(serviceProvider, adminPW, "admin@filmdesigners.at");
-                await EnsureRole(serviceProvider, adminID, Constants.MembersAdministratorsRole);
-                await EnsureRole(serviceProvider, adminID, Constants.ChapterAdministratorsRole);
-                await EnsureRole(serviceProvider, adminID, Constants.EnrollmentAdministratorsRole);
-                await EnsureRole(serviceProvider, adminID, Constants.RolesAdministratorsRole);
-                await EnsureRole(serviceProvider, adminID, Constants.UsersAdministratorsRole);
-                await EnsureRole(serviceProvider, adminID, Constants.JobsAdministratorsRole);
-
-                var uid = await EnsureUser(serviceProvider, adminPW, "manager@filmdesigners.at");
-                await EnsureRole(serviceProvider, adminPW, Constants.MembersManagersRole);
-
-                SeedDB(context, adminID);
-            }
-        }
-        #endregion
-#region snippet_CreateRoles
-
-        public static async Task<string> EnsureUser(IServiceProvider serviceProvider, string adminPW, string UserName)
-        {
-            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
-
-            var user = await userManager.FindByNameAsync(UserName);
-            if(user == null)
-            {
-                user = new ApplicationUser
+                if (context.Member.Count() == 0)
                 {
-                    UserName = UserName
-                };
-                await userManager.CreateAsync(user, adminPW);
-            }
+                    var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+                    var UBirgitHutter = await userManager.FindByEmailAsync("hutterbirgit@gmail.com");
+                    var UHansJager = await userManager.FindByEmailAsync("jager@a1.net");
+                    var UEnidLoser = await userManager.FindByEmailAsync("enid@chello.at");
+                    var UBrigittaFink = await userManager.FindByEmailAsync("brigittafink@gmx.at");
+                    var UChristineLudwig = await userManager.FindByEmailAsync("c.ludwig.cl@gmail.com");
+                    var UHansJorgMikesch = await userManager.FindByEmailAsync("office@szenenbild.at");
+                    var UFlorianReichmann = await userManager.FindByEmailAsync("mail@f-reichmann.at");
+                    var UHannesSalat = await userManager.FindByEmailAsync("salatbox@mac.com");
+                    var UDanielSteinbach = await userManager.FindByEmailAsync("danielsteinbach@gmx.net");
+                    var UThomasVogel = await userManager.FindByEmailAsync("th.voegel@gmail.com");
+                    var Kostumbild = context.Job.AsNoTracking().SingleOrDefaultAsync(j => j.Name == "Kostümbild");
+                    var Szenenbild = context.Job.AsNoTracking().SingleOrDefaultAsync(j => j.Name == "Szenenbild");
+                    Member BirgitHutter = new Member()
+                    {
+                        OwnerID = UBirgitHutter.Id,
+                        JobId = Kostumbild.Id,
+                        Name = "Birgit Hutter",
+                        Male = false,
+                        Street = "Dominikanerbastei 6/15",
+                        ZIP = 1010,
+                        City = "Wien",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "+43 1 512 30 22",
+                        Mobile = "",
+                        Phone = "+43 1 512 97 12",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "Englisch, Französisch, Italienisch",
+                        InternationalExperiences = "Italien, Deutschland, USA",
+                        Education = "Matura am Human. Gymnasium; Studium Malerei an Hochschule F. Angew. Kunst Wien; Art Students League, New York City, Diplom in der Klasse für Bühnenbild u. Kostüm Akademie der Bildenden Künste, Wien; Studium der Theaterwissenschaften, Universität Wien",
+                        Activities = "Assistentin von Vivienne Westwood und Marc Bohan, Hochschule für Angew. Kunst, Wien; Lehrauftrag Prof. Paolo Piva, Hochschule für Angew. Kunst, Wien",
+                        Galleries = "",
+                        Awards =    "1988 bundes filmpreis für die kostüme von WEITES LAND regie .luc bondy\n" +
+                                    "1994 goldener kader für die kostüme von SALZBARON regie : bernd fischerauer\n" +
+                                    "2008 nominierung für den deutschen fernsehpreis für \"JÜNGSTES GERICHT\"\n" +
+                                    "regie: urs egger\n" +
+                                    "2013 nominierung für den österreichischen filmpreis 2013 für die kostüme von\n" +
+                                    "TABU regie:christoph stark\n" +
+                                    "2015 nominierung für den österreichischen filmpreis 2015 für die kostüme von DER TEUFELSGEIGER regie: bernhard rose\n" +
+                                    "2015 nominierung für american costumedesigners guild for outstanding costumes for HOUDINI regie : uli edel",
+                        Notes = "",
+                        EMail = "hutterbirgit@gmail.com",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member HansJager = new Member()
+                    {
+                        OwnerID = UHansJager.Id,
+                        JobId = Szenenbild.Id,
+                        Name = "Hans Jager",
+                        Male = true,
+                        Street = "Wiener Straße 44",
+                        ZIP = 3004,
+                        City = "Riederberg",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "",
+                        Mobile = "+43 664 325 26 92",
+                        Phone = "43 2271 8509",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "Englisch",
+                        InternationalExperiences = "",
+                        Education = "",
+                        Activities = "Bühnenrealisationen: Ensembletheater, Dario-Fo-Theater, Wiener Ensemble, Realisationen von Kunstobjekten u. Installationen: Bernd Fasching, Heimo Zobernig, Franz West, Werkstätte für Design und Herstellung von Möbel u. Inneneinrichtungen, Gestaltung von gewerblichen Betriebseinrichtungen: Div. Boutiquen u. Büros, Café Bar-Gasthaus \"Lux\", Tonstudio Gigele, Kino-Trabrennbahn Krieau",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "",
+                        EMail = "jager@a1.net",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member EnidLoser = new Member()
+                    {
+                        OwnerID = UEnidLoser.Id,
+                        JobId = Szenenbild.Id,
+                        Name = "Enid Löser",
+                        Male = false,
+                        Street = "Bischof Faber Platz 8/13",
+                        ZIP = 1180,
+                        City = "Wien",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "",
+                        Mobile = "+43 676 311 45 09",
+                        Phone = "",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "englisch, französisch",
+                        InternationalExperiences = "",
+                        Education = "Bühnenbild Masterstudium an der TU Berlin, Master of Arts\n" +
+                                    "Kolleg für Möbel - und Innenausbau, Diplom",
+                        Activities = "",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "",
+                        EMail = "enid@chello.at",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member BrigittaFink = new Member()
+                    {
+                        OwnerID = UBrigittaFink.Id,
+                        JobId = Kostumbild.Id,
+                        Name = "Brigitta Fink",
+                        Male = false,
+                        Street = "Leopoldsgasse 22/12a",
+                        ZIP = 1020,
+                        City = "Wien",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "",
+                        Mobile = "+43 676 545 37 38",
+                        Phone = "",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "Englisch , Italienisch",
+                        InternationalExperiences = "Italien , Schweden , Deutschland , Schweiz , Afrika , Dom.Rep. , China,GB,Ungarn",
+                        Education = "Höhere Bundes -Lehr und Versuchsanstalt für Textilindustrie Dornbirn",
+                        Activities = "Kostümassistenz , Kostümsupervisor, Kostümbild für Kino , Tv , Theater ,Werbung",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "",
+                        EMail = "brigittafink@gmx.at",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member ChristineLudwig = new Member()
+                    {
+                        OwnerID = UChristineLudwig.Id,
+                        JobId = Kostumbild.Id,
+                        Name = "Christine Ludwig",
+                        Male = false,
+                        Street = "Diepoldplatz 5/6",
+                        ZIP = 1170,
+                        City = "Wien",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "",
+                        Mobile = "+43 699 126 691 82",
+                        Phone = "",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "englisch",
+                        InternationalExperiences = "Jordanien, Italien, Spanien, Deutschland, Frankreich, Mauritius, Polen",
+                        Education = "HBLA f. Mode Herbststraße, 1992-94 Studium Theaterwissenschaft und Kunstgeschichte, 1994-95 Speziallehrgang für Bühnenkostüme Herbststraße",
+                        Activities = "Kostümbild, Kostümassistenz, Garderobe",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "Eigener Kostümfundus - KostümRaum - Rötzergasse 18, 1170 Wien",
+                        EMail = "c.ludwig.cl@gmail.com",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member HansJorgMikesch = new Member()
+                    {
+                        OwnerID = UHansJager.Id,
+                        JobId = Szenenbild.Id,
+                        Name = "Hans Jörg Mikesch",
+                        Male = true,
+                        Street = "Westbahnstraße 33",
+                        ZIP = 1070,
+                        City = "Wien",
+                        Country = "Österreich",
+                        Website = "www.szenenbild.at",
+                        Fax = "",
+                        Mobile = "+43 664 333 85 36",
+                        Phone = "+43 1 522 18 39",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "englisch, italienisch, französisch",
+                        InternationalExperiences = "Italien, Deutschland, Schweiz, Niederlande",
+                        Education = "Visuelle Gestaltung bei Laurids Ortner ( Meisterklasse), Universität für Gestaltung Linz,\n" + 
+                                    "European Summer Academy Berlin,\n" +
+                                    "Filmarchitektur",
+                        Activities = "",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "",
+                        EMail = "office@szenenbild.at",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member FlorianReichmann = new Member()
+                    {
+                        OwnerID = UFlorianReichmann.Id,
+                        JobId = Szenenbild.Id,
+                        Name = "Florian Reichmann",
+                        Male = true,
+                        Street = "Sigmundsgasse 2",
+                        ZIP = 1070,
+                        City = "Wien",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "",
+                        Mobile = "+43 664 315 57 88",
+                        Phone = "+43 1 526 80 00",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "Englisch",
+                        InternationalExperiences = "Deuschland, Spanien, Ungarn",
+                        Education = "Architekturstudium Technische Universität Wien",
+                        Activities = "Filmausstattungen, Bauten, Einrichtungen, Bühnenbild, Design, Werbung etc.",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "Nominiert für den deutschen Fernsehpreis 2008 in der Kategorie \"Beste Ausstattung - Szenenbild\" für \"Das jüngste Gericht\"\n" +
+                                "Nominiert für den Goldenen Kader 1994 in der Kategorie \"Beste Ausstattung\" für \"Die Flucht\"",
+                        EMail = "mail@f-reichmann.at",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member HannesSalat = new Member()
+                    {
+                        OwnerID = UHannesSalat.Id,
+                        JobId = Szenenbild.Id,
+                        Name = "Hannes Salat",
+                        Male = true,
+                        Street = "",
+                        ZIP = 1090,
+                        City = "Wien",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "",
+                        Mobile = "+43 664 132 41 81",
+                        Phone = "",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "Englisch",
+                        InternationalExperiences = "Ukraine, Paris",
+                        Education = "Architekturstudium Technische Universität Wien",
+                        Activities =    "Szenenbild, Bühnenbild, Design, Messegestaltung, Außenrequisite, Szenenbildassistenz, Locationscout.\n" + 
+                                        "seit März 2014 Lehrauftrag für Szenenbild an der Filmakademie Wien\n" +
+                                        "seit Oktober 2016 Lehrauftrag für Szenenbild an der Klasse für Bühnen und Filmgestaltung - Akademie für angewandte Kunst Wien.",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "Österreichischer Filmpreis 2016 für \"Ich seh Ich seh\" mit Hubert Klausner\n" +
+                                "Österreichischer Filmpreis 2017 für \"Stille Reserven\"\n" +
+                                "Szenenbild für diverse Werbungen: ONE, Iglo, WKO, Billa, Persil, Raiffeisen, Bausparkasse, Mc Donalds, Maggi, A1, Energie AG, FGÖ, Bundesministerium f. WFJ, Intersport, Cosmos, ÖBB, Dorotheum, Lutz, Mömax, Tirolmilch, Licht ins Dunkel",
+                        EMail = "salatbox@mac.com",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member DanielSteinbach = new Member()
+                    {
+                        OwnerID = UDanielSteinbach.Id,
+                        JobId = Szenenbild.Id,
+                        Name = "Daniel Steinbach",
+                        Male = true,
+                        Street = "Hauptstrasse 156",
+                        ZIP = 2391,
+                        City = "Kaltenleutgeben",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "",
+                        Mobile = "+43 664 421 70 82",
+                        Phone = "",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "",
+                        InternationalExperiences = "",
+                        Education = "",
+                        Activities = "",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "",
+                        EMail = "danielsteinbach@gmx.net",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
+                    Member ThomasVogel = new Member()
+                    {
+                        OwnerID = UThomasVogel.Id,
+                        JobId = Szenenbild.Id,
+                        Name = "Thomas Vogel",
+                        Male = true,
+                        Street = "Fassziehergasse 5",
+                        ZIP = 1070,
+                        City = "Wien",
+                        Country = "Österreich",
+                        Website = "",
+                        Fax = "",
+                        Mobile = "+43 664 300 63 59",
+                        Phone = "",
+                        OtherContact = "",
+                        Birthday = new DateTime(),
+                        Deathday = new DateTime(),
+                        Picture = "",
+                        Languages = "englisch",
+                        InternationalExperiences = "Deutschland, Italien, Tschechien, Russland, Malta, Israel, Irland, Spanien, Frankreich, Schweiz, Ungarn",
+                        Education = "Bildhauerei, Grafik, Fotolehre",
+                        Activities = "Bühnenbau, Innen- und Außenrequisite, Spezialeffekte, seit mehreren Jahren ausschließlich Ausstattung für Kino, TV, Werbung, Musikvideos, Bühnenbilder für EAV und Wolfgang Ambros",
+                        Galleries = "",
+                        Awards = "",
+                        Notes = "Projekte im ländlich alpinen Raum",
+                        EMail = "th.voegel@gmail.com",
+                        Active = true,
+                        Locked = false,
+                        Resigned = false,
+                        Paused = false,
+                        LastUpdate = DateTime.Now,
+                        Status = MemberStatus.Approved
+                    };
 
-            // Confirm Email to enable Login
-            user.EmailConfirmed = true;
-            await userManager.UpdateAsync(user);
 
-            return user.Id;
-        }
 
-        public static async Task<IdentityResult> EnsureRole(IServiceProvider serviceProvider, string uid, string role)
-        {
-            IdentityResult IR = null;
+                    context.Add(BirgitHutter);
+                    context.Add(HansJager);
+                    context.Add(EnidLoser);
+                    context.Add(BrigittaFink);
+                    context.Add(ChristineLudwig);
+                    context.Add(HansJorgMikesch);
+                    context.Add(FlorianReichmann);
+                    context.Add(HannesSalat);
+                    context.Add(DanielSteinbach);
+                    context.Add(ThomasVogel);
 
-            var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
-
-            if(! await roleManager.RoleExistsAsync(role))
-            {
-                IR = await roleManager.CreateAsync(new IdentityRole(role));
-            }
-
-            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
-
-            var user = await userManager.FindByIdAsync(uid);
-
-            IR = await userManager.AddToRoleAsync(user, role);
-
-            return IR;
-        }
-        #endregion
-        #region snippet1
-        public static void SeedDB(ApplicationDbContext context, string adminID)
-        {
-            if(context.Member.Any())
-            {
-                return;
-            }
-
-            context.Member.AddRange(
-            #region snippet_Member
-                new Member
-                {
-                    Name = "Administrator",
-                    Status = MemberStatus.Approved,
-                    OwnerID = adminID
-
+                    context.SaveChanges();
                 }
-                #endregion
-                #endregion
-            );
-
-            context.SaveChanges();
+            }
         }
     }
 }

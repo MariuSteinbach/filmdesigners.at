@@ -110,10 +110,9 @@ namespace filmdesigners.at
 
             var dbContext = serviceProvider.GetService<ApplicationDbContext>();
 
-            SeedMembers.Initialize(serviceProvider, "123..Abc");
-            SeedJobs.Initialize(serviceProvider);
             SeedUsers.Initialize(serviceProvider);
-
+            //SeedJobs.Initialize(serviceProvider);
+            //SeedMembers.Initialize(serviceProvider);
 
             return serviceProvider;
         }
@@ -158,7 +157,7 @@ namespace filmdesigners.at
                 AdminUserPW = "123..abc";
             }
 
-            var empty = SeedMembers.EnsureRole(app.ApplicationServices, "bf2a756-3dd4-4883-b2b4-33fdcec9b9d2", Constants.EnrollmentAdministratorsRole);
+            //var empty = SeedMembers.EnsureRole(app.ApplicationServices, "bf2a756-3dd4-4883-b2b4-33fdcec9b9d2", Constants.EnrollmentAdministratorsRole);
             /*
             try
             {*/
