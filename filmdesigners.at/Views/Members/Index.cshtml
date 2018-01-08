@@ -4,6 +4,7 @@
     ViewData["Title"] = "Mitglieder";
 }
 
+@await Html.PartialAsync("_SidePartial")
 <h2>Mitglieder</h2>
 @if (User.IsInRole("MembersAdministrator"))
 {

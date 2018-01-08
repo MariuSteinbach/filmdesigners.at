@@ -28,6 +28,7 @@ namespace filmdesigners.at.Data
                 await EnsureRole(serviceProvider, adminID, Constants.EnrollmentAdministratorsRole);
                 await EnsureRole(serviceProvider, adminID, Constants.RolesAdministratorsRole);
                 await EnsureRole(serviceProvider, adminID, Constants.UsersAdministratorsRole);
+                await EnsureRole(serviceProvider, adminID, Constants.JobsAdministratorsRole);
 
                 var uid = await EnsureUser(serviceProvider, adminPW, "manager@filmdesigners.at");
                 await EnsureRole(serviceProvider, adminPW, Constants.MembersManagersRole);
@@ -51,6 +52,10 @@ namespace filmdesigners.at.Data
                 };
                 await userManager.CreateAsync(user, adminPW);
             }
+
+            // Confirm Email to enable Login
+            user.EmailConfirmed = true;
+            await userManager.UpdateAsync(user);
 
             return user.Id;
         }

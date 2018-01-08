@@ -24,9 +24,19 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
+           
+            @if (item.isPartner)
+            {
+                <td>
+                    PARTNER - @Html.DisplayFor(modelItem => item.Name)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
             </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>

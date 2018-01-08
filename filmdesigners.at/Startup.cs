@@ -41,9 +41,9 @@ namespace filmdesigners.at
                 //add framework services.
                 services.AddDbContext<ApplicationDbContext>(options =>
                     //Old LocalDB Config
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                 // NEW DOCKER SQL SERVER
-                //options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
+                options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -55,9 +55,9 @@ namespace filmdesigners.at
                 });
 
                 //add framework services.
-                services.AddDbContext<ApplicationDbContext>(options =>
+                //services.AddDbContext<ApplicationDbContext>(options =>
                     //Old LocalDB Config
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                     // NEW DOCKER SQL SERVER
                     //options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
             }
@@ -110,7 +110,8 @@ namespace filmdesigners.at
 
             var dbContext = serviceProvider.GetService<ApplicationDbContext>();
 
-            SeedMembers.Initialize(serviceProvider, "JQ$uk1n!vs");
+            SeedMembers.Initialize(serviceProvider, "123..Abc");
+            SeedJobs.Initialize(serviceProvider);
 
 
 
