@@ -112,7 +112,7 @@ namespace filmdesigners.at
 
             SeedMembers.Initialize(serviceProvider, "123..Abc");
             SeedJobs.Initialize(serviceProvider);
-
+            SeedUsers.Initialize(serviceProvider);
 
 
             return serviceProvider;
