@@ -395,8 +395,10 @@ namespace filmdesigners.at.Data
                     context.Add(DanielSteinbach);
                     context.Add(ThomasVogel);
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
+
                 }
+                await SeedProjects.Initialize(serviceProvider);
             }
         }
     }
