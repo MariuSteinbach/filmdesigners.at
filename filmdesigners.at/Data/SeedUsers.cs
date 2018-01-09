@@ -64,7 +64,7 @@ namespace filmdesigners.at.Data
                     };
                     var HansJorgMikesch = new ApplicationUser
                     {
-                        Email = "office@szenenbild.atm",
+                        Email = "office@szenenbild.at",
                         EmailConfirmed = true,
                         LockoutEnabled = true,
                         UserName = "office@szenenbild.at"

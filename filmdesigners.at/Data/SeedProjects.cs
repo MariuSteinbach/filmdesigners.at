@@ -354,6 +354,7 @@ namespace filmdesigners.at.Data
 
                     await context.SaveChangesAsync();
                 }
+                await SeedChapters.Initialize(serviceProvider);
             }
         }
         #endregion

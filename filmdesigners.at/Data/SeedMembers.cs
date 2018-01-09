@@ -39,7 +39,7 @@ namespace filmdesigners.at.Data
                     Member BirgitHutter = new Member()
                     {
                         OwnerID = UBirgitHutter.Id,
-                        JobId = Kostumbild.Id,
+                        JobId = Kostumbild.Result.JobId,
                         Name = "Birgit Hutter",
                         Male = false,
                         Street = "Dominikanerbastei 6/15",
@@ -79,7 +79,7 @@ namespace filmdesigners.at.Data
                     Member HansJager = new Member()
                     {
                         OwnerID = UHansJager.Id,
-                        JobId = Szenenbild.Id,
+                        JobId = Szenenbild.Result.JobId,
                         Name = "Hans Jager",
                         Male = true,
                         Street = "Wiener Straße 44",
@@ -112,7 +112,7 @@ namespace filmdesigners.at.Data
                     Member EnidLoser = new Member()
                     {
                         OwnerID = UEnidLoser.Id,
-                        JobId = Szenenbild.Id,
+                        JobId = Szenenbild.Result.JobId,
                         Name = "Enid Löser",
                         Male = false,
                         Street = "Bischof Faber Platz 8/13",
@@ -146,7 +146,7 @@ namespace filmdesigners.at.Data
                     Member BrigittaFink = new Member()
                     {
                         OwnerID = UBrigittaFink.Id,
-                        JobId = Kostumbild.Id,
+                        JobId = Kostumbild.Result.JobId,
                         Name = "Brigitta Fink",
                         Male = false,
                         Street = "Leopoldsgasse 22/12a",
@@ -179,7 +179,7 @@ namespace filmdesigners.at.Data
                     Member ChristineLudwig = new Member()
                     {
                         OwnerID = UChristineLudwig.Id,
-                        JobId = Kostumbild.Id,
+                        JobId = Kostumbild.Result.JobId,
                         Name = "Christine Ludwig",
                         Male = false,
                         Street = "Diepoldplatz 5/6",
@@ -211,8 +211,8 @@ namespace filmdesigners.at.Data
                     };
                     Member HansJorgMikesch = new Member()
                     {
-                        OwnerID = UHansJager.Id,
-                        JobId = Szenenbild.Id,
+                        OwnerID = UHansJorgMikesch.Id,
+                        JobId = Szenenbild.Result.JobId,
                         Name = "Hans Jörg Mikesch",
                         Male = true,
                         Street = "Westbahnstraße 33",
@@ -247,7 +247,7 @@ namespace filmdesigners.at.Data
                     Member FlorianReichmann = new Member()
                     {
                         OwnerID = UFlorianReichmann.Id,
-                        JobId = Szenenbild.Id,
+                        JobId = Szenenbild.Result.JobId,
                         Name = "Florian Reichmann",
                         Male = true,
                         Street = "Sigmundsgasse 2",
@@ -281,7 +281,7 @@ namespace filmdesigners.at.Data
                     Member HannesSalat = new Member()
                     {
                         OwnerID = UHannesSalat.Id,
-                        JobId = Szenenbild.Id,
+                        JobId = Szenenbild.Result.JobId,
                         Name = "Hannes Salat",
                         Male = true,
                         Street = "",
@@ -318,7 +318,7 @@ namespace filmdesigners.at.Data
                     Member DanielSteinbach = new Member()
                     {
                         OwnerID = UDanielSteinbach.Id,
-                        JobId = Szenenbild.Id,
+                        JobId = Szenenbild.Result.JobId,
                         Name = "Daniel Steinbach",
                         Male = true,
                         Street = "Hauptstrasse 156",
@@ -351,7 +351,7 @@ namespace filmdesigners.at.Data
                     Member ThomasVogel = new Member()
                     {
                         OwnerID = UThomasVogel.Id,
-                        JobId = Szenenbild.Id,
+                        JobId = Szenenbild.Result.JobId,
                         Name = "Thomas Vogel",
                         Male = true,
                         Street = "Fassziehergasse 5",
