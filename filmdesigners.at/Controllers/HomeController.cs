@@ -32,6 +32,7 @@ namespace filmdesigners.at.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Chapter.OrderByDescending(c => c.Created);
+            ViewData["SubPage"] = "Index";
             return View(await applicationDbContext.ToListAsync());
             
         }
