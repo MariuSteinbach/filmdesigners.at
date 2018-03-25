@@ -10,6 +10,7 @@ using filmdesigners.at.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using filmdesigners.at.Authorization;
+using System.IO;
 
 namespace filmdesigners.at.Controllers
 {
@@ -101,6 +102,27 @@ namespace filmdesigners.at.Controllers
 
             chapter.Edited = DateTime.Now;
 
+            for (; ; )
+            {
+                if(!chapter.Text.Contains("data:image"))
+                {
+                    break;
+                }
+                Guid PictureID = Guid.NewGuid();
+                string fileType = chapter.Text.Split(new string[] { "data:image/" }, StringSplitOptions.None)[1].Split(';')[0];
+                string PicturesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{PictureID}.{fileType}");
+                string base64data = chapter.Text.Split(new string[] { "data:image/" }, StringSplitOptions.None)[1].Split(',')[1].Split('"')[0];
+                var bytes = Convert.FromBase64String(base64data);
+                if (bytes.Length > 0)
+                {
+                    using (var stream = new FileStream(PicturesPath, FileMode.Create))
+                    {
+                        stream.Write(bytes, 0, bytes.Length);
+                        stream.Flush();
+                    }
+                }
+                chapter.Text = chapter.Text.Replace($"data:image/{fileType};base64,{base64data}", $"/images/{PictureID}.{fileType}").Replace("data-filename", "alt");
+            }
             if (ModelState.IsValid)
             {
                 try
