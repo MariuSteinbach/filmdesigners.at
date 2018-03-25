@@ -29,7 +29,7 @@ namespace filmdesigners.at.Controllers
 
         // GET: Projects/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -76,7 +76,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Projects/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -96,7 +96,7 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjectID,OwnerID,Name")] Project project)
+        public async Task<IActionResult> Edit(string id, [Bind("ProjectID,OwnerID,Name")] Project project)
         {
             if (id != project.ProjectID)
             {
@@ -127,7 +127,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Projects/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -147,7 +147,7 @@ namespace filmdesigners.at.Controllers
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var project = await _context.Project.SingleOrDefaultAsync(m => m.ProjectID == id);
             _context.Project.Remove(project);
@@ -155,7 +155,7 @@ namespace filmdesigners.at.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProjectExists(int id)
+        private bool ProjectExists(string id)
         {
             return _context.Project.Any(e => e.ProjectID == id);
         }

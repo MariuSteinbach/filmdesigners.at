@@ -7,7 +7,7 @@ namespace filmdesigners.at.Models
 {
     public class Job
     {
-        public int JobId { get; set; }
+        public string JobId { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }

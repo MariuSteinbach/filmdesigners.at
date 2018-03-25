@@ -7,7 +7,7 @@ namespace filmdesigners.at.Models
 {
     public class Project
     {
-        public int ProjectID { get; set; }
+        public string ProjectID { get; set; }
 
         public string OwnerID { get; set; }
 

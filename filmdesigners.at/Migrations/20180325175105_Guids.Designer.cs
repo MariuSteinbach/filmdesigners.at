@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace filmdesigners.at.Data.Migrations
+namespace filmdesigners.at.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171223085504_ChapterDates")]
-    partial class ChapterDates
+    [Migration("20180325175105_Guids")]
+    partial class Guids
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,20 +75,20 @@ namespace filmdesigners.at.Data.Migrations
 
             modelBuilder.Entity("filmdesigners.at.Models.Award", b =>
                 {
-                    b.Property<int>("AwardID")
+                    b.Property<string>("AwardID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Category");
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("JobID");
+                    b.Property<string>("JobID");
 
-                    b.Property<int>("MemberID");
+                    b.Property<string>("MemberID");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("ProjectID");
+                    b.Property<string>("ProjectID");
 
                     b.HasKey("AwardID");
 
@@ -123,14 +123,14 @@ namespace filmdesigners.at.Data.Migrations
 
             modelBuilder.Entity("filmdesigners.at.Models.Enrollment", b =>
                 {
-                    b.Property<int>("EnrollmentID")
+                    b.Property<string>("EnrollmentID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("JobId");
+                    b.Property<string>("JobId");
 
-                    b.Property<int>("MemberID");
+                    b.Property<string>("MemberID");
 
-                    b.Property<int>("ProjectID");
+                    b.Property<string>("ProjectID");
 
                     b.HasKey("EnrollmentID");
 
@@ -143,14 +143,38 @@ namespace filmdesigners.at.Data.Migrations
                     b.ToTable("Enrollment");
                 });
 
+            modelBuilder.Entity("filmdesigners.at.Models.Event", b =>
+                {
+                    b.Property<string>("EventID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Picture");
+
+                    b.Property<string>("Teaser");
+
+                    b.Property<string>("Text");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("EventID");
+
+                    b.ToTable("Event");
+                });
+
             modelBuilder.Entity("filmdesigners.at.Models.Job", b =>
                 {
-                    b.Property<int>("JobId")
+                    b.Property<string>("JobId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
                     b.Property<string>("Name");
+
+                    b.Property<bool>("isPartner");
 
                     b.HasKey("JobId");
 
@@ -159,7 +183,7 @@ namespace filmdesigners.at.Data.Migrations
 
             modelBuilder.Entity("filmdesigners.at.Models.Member", b =>
                 {
-                    b.Property<int>("MemberId")
+                    b.Property<string>("MemberId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Active");
@@ -186,7 +210,7 @@ namespace filmdesigners.at.Data.Migrations
 
                     b.Property<string>("InternationalExperiences");
 
-                    b.Property<int>("JobId");
+                    b.Property<string>("JobId");
 
                     b.Property<string>("Languages");
 
@@ -231,12 +255,24 @@ namespace filmdesigners.at.Data.Migrations
 
             modelBuilder.Entity("filmdesigners.at.Models.Project", b =>
                 {
-                    b.Property<int>("ProjectID")
+                    b.Property<string>("ProjectID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Countries");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Link");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("OwnerID");
+                    b.Property<string>("OwnerID");
+
+                    b.Property<string>("Production");
+
+                    b.Property<string>("Regiesseur");
+
+                    b.Property<int>("Type");
 
                     b.HasKey("ProjectID");
 
@@ -355,44 +391,37 @@ namespace filmdesigners.at.Data.Migrations
                 {
                     b.HasOne("filmdesigners.at.Models.Job", "Job")
                         .WithMany()
-                        .HasForeignKey("JobID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("JobID");
 
                     b.HasOne("filmdesigners.at.Models.Member", "Member")
                         .WithMany()
-                        .HasForeignKey("MemberID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MemberID");
 
                     b.HasOne("filmdesigners.at.Models.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProjectID");
                 });
 
             modelBuilder.Entity("filmdesigners.at.Models.Enrollment", b =>
                 {
                     b.HasOne("filmdesigners.at.Models.Job", "Job")
                         .WithMany()
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("JobId");
 
                     b.HasOne("filmdesigners.at.Models.Member", "Member")
                         .WithMany("Enrollments")
-                        .HasForeignKey("MemberID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MemberID");
 
                     b.HasOne("filmdesigners.at.Models.Project", "Project")
                         .WithMany("Enrollments")
-                        .HasForeignKey("ProjectID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProjectID");
                 });
 
             modelBuilder.Entity("filmdesigners.at.Models.Member", b =>
                 {
                     b.HasOne("filmdesigners.at.Models.Job", "Job")
                         .WithMany()
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("JobId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

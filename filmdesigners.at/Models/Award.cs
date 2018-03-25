@@ -7,10 +7,10 @@ namespace filmdesigners.at.Models
 {
     public class Award
     {
-        public int AwardID { get; set; }
-        public int MemberID { get; set; }
-        public int ProjectID { get; set; }
-        public int JobID { get; set; }
+        public string AwardID { get; set; }
+        public string MemberID { get; set; }
+        public string ProjectID { get; set; }
+        public string JobID { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public string Category { get; set; }

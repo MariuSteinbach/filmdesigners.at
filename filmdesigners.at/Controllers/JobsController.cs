@@ -29,7 +29,7 @@ namespace filmdesigners.at.Controllers
 
         // GET: Jobs/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -69,7 +69,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Jobs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -89,7 +89,7 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("JobId,Name,Description")] Job job)
+        public async Task<IActionResult> Edit(string id, [Bind("JobId,Name,Description")] Job job)
         {
             if (id != job.JobId)
             {
@@ -120,7 +120,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Jobs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -140,7 +140,7 @@ namespace filmdesigners.at.Controllers
         // POST: Jobs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var job = await _context.Job.SingleOrDefaultAsync(m => m.JobId == id);
             _context.Job.Remove(job);
@@ -148,7 +148,7 @@ namespace filmdesigners.at.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool JobExists(int id)
+        private bool JobExists(string id)
         {
             return _context.Job.Any(e => e.JobId == id);
         }

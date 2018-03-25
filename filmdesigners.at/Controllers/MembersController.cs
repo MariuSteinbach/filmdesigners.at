@@ -42,7 +42,7 @@ namespace filmdesigners.at.Controllers
 
         // GET: Members/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -103,7 +103,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Members/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -132,7 +132,7 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, MemberEditViewModel editModel)
+        public async Task<IActionResult> Edit(string id, MemberEditViewModel editModel)
         {
             if(!ModelState.IsValid)
             {
@@ -188,7 +188,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Members/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -215,7 +215,7 @@ namespace filmdesigners.at.Controllers
         // POST: Members/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var member = await _context.Member.SingleOrDefaultAsync(m => m.MemberId == id);
 
@@ -234,7 +234,7 @@ namespace filmdesigners.at.Controllers
         // POST: Members/SetStatus/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SetStatus(int id, Models.MemberStatus status)
+        public async Task<IActionResult> SetStatus(string id, Models.MemberStatus status)
         {
             var member = await _context.Member.SingleOrDefaultAsync(m => m.MemberId == id);
 
@@ -255,7 +255,7 @@ namespace filmdesigners.at.Controllers
 
         }
 
-        private bool MemberExists(int id)
+        private bool MemberExists(string id)
         {
             return _context.Member.Any(e => e.MemberId == id);
         }

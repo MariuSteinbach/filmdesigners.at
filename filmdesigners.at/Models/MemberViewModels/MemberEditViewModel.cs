@@ -6,11 +6,11 @@ namespace filmdesigners.at.Models.MemberViewModels
 {
     public class MemberEditViewModel
     {
-        public int MemberId { get; set; }
+        public string MemberId { get; set; }
 
         public string OwnerID { get; set; }
 
-        public int JobId { get; set; }
+        public string JobId { get; set; }
 
         public string Name { get; set; }
         public bool Male { get; set; }

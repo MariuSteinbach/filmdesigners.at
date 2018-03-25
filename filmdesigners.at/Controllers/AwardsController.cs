@@ -30,7 +30,7 @@ namespace filmdesigners.at.Controllers
 
         // GET: Awards/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -79,7 +79,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Awards/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -102,7 +102,7 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AwardID,MemberID,ProjectID,JobID,Name,Date,Category")] Award award)
+        public async Task<IActionResult> Edit(string id, [Bind("AwardID,MemberID,ProjectID,JobID,Name,Date,Category")] Award award)
         {
             if (id != award.AwardID)
             {
@@ -136,7 +136,7 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Awards/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -159,7 +159,7 @@ namespace filmdesigners.at.Controllers
         // POST: Awards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var award = await _context.Award.SingleOrDefaultAsync(m => m.AwardID == id);
             _context.Award.Remove(award);
@@ -167,7 +167,7 @@ namespace filmdesigners.at.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AwardExists(int id)
+        private bool AwardExists(string id)
         {
             return _context.Award.Any(e => e.AwardID == id);
         }
