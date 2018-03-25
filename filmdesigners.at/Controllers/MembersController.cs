@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using filmdesigners.at.Authorization;
 using filmdesigners.at.Models.MemberViewModels;
 using filmdesigners.at.Services;
+using System.IO;
 
 namespace filmdesigners.at.Controllers
 {
@@ -165,6 +166,21 @@ namespace filmdesigners.at.Controllers
                     member.Status = Models.MemberStatus.Submitted;
                 }
             }
+            // create file with picture
+            Guid PictureID = Guid.NewGuid();
+            string fileType = member.Picture.Split('/')[1].Split(';')[0];
+            string PicturesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{PictureID}.{fileType}");
+
+            var bytes = Convert.FromBase64String(member.Picture.Split(',')[1]);
+            if (bytes.Length > 0)
+            {
+                using (var stream = new FileStream(PicturesPath, FileMode.Create))
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                    stream.Flush();
+                }
+            }
+            member.Picture = $"{PictureID.ToString()}.{fileType}";
             _context.Update(member);
             await _context.SaveChangesAsync();
 
