@@ -46,11 +46,11 @@
                 <a asp-action="Details" asp-route-id="@item.MemberId">
                     @if (item.Picture != "")
                     {
-                        <img src="/images/@item.Picture" />
+                        <img src="/images/@item.Picture" style="height: 100px"/>
                     }
                     else
                     {
-                        <img src="~/images/00000000-0000-0000-0000-000000000000.svg">
+                        <img src="~/images/00000000-0000-0000-0000-000000000000.svg" style="height: 100px">
                     }
                 </a>
             </td>
