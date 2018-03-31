@@ -43,6 +43,16 @@ namespace filmdesigners.at.Authorization
             {
                 Name = Constants.ReadMemberStateOperationName
             };
+        public static OperationAuthorizationRequirement UpgradeMember =
+            new OperationAuthorizationRequirement
+            {
+            Name = Constants.UpgradeMemberOperationName
+            };
+        public static OperationAuthorizationRequirement DowngradeMember =
+            new OperationAuthorizationRequirement
+            {
+            Name = Constants.DowngradeMemberOperationName
+            };
     }
 
     public class Constants
@@ -55,7 +65,9 @@ namespace filmdesigners.at.Authorization
         public static readonly string RejectOperationName = "Reject";
         public static readonly string AddUserOperationName = "Add";
         public static readonly string RemoveUserOperationName = "Remove";
-        public static readonly string ReadMemberStateOperationName = "ReadMemberState"; 
+        public static readonly string ReadMemberStateOperationName = "ReadMemberState";
+        public static readonly string UpgradeMemberOperationName = "UpgradeMember";
+        public static readonly string DowngradeMemberOperationName = "DowngradeMember";
 
         public static readonly string MembersAdministratorsRole = "MembersAdministrator";
         public static readonly string MembersManagersRole = "MembersManager";

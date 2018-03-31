@@ -13,6 +13,8 @@ namespace filmdesigners.at.Models
 
         public string JobId { get; set; }
 
+        public int Priority { get; set; }
+
         public string Name { get; set; }
         public bool Male { get; set; }
         public string Street { get; set; }

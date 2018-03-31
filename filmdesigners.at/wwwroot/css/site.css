@@ -28,3 +28,12 @@
 .sidebar {
     top: -2px;
 }
+
+a {
+    color: #cb8d4a;
+}
+
+a:hover {
+    color: #cb8d4a
+
+}

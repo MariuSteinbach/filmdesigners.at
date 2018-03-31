@@ -37,7 +37,7 @@ namespace filmdesigners.at.Controllers
         {
             var Jobs = _context.Job.ToArray();
             ViewData["Jobs"] = Jobs;
-            return View(await _context.Member.ToListAsync());
+            return View(await _context.Member.OrderBy(m => m.Priority).ToListAsync());
         }
 
         // GET: Members/Details/5
@@ -211,6 +211,66 @@ namespace filmdesigners.at.Controllers
 
             return View(member);
         }
+
+        // GET: Members/Upgrade/5
+        public async Task<IActionResult> Upgrade(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var member = await _context.Member
+                .SingleOrDefaultAsync(m => m.MemberId == id);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, member, MemberOperations.UpgradeMember);
+
+            if (!isAuthorized.Succeeded)
+            {
+                return new ChallengeResult();
+            }
+
+            if(member.Priority > 0)
+            {
+                member.Priority--;
+                _context.Update(member);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: Members/Downgrade/5
+        public async Task<IActionResult> Downgrade(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var member = await _context.Member
+                .SingleOrDefaultAsync(m => m.MemberId == id);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            var isAuthorized = await _authorizationService.AuthorizeAsync(User, member, MemberOperations.DowngradeMember);
+
+            if (!isAuthorized.Succeeded)
+            {
+                return new ChallengeResult();
+            }
+            member.Priority++;
+            _context.Update(member);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
 
         // POST: Members/Delete/5
         [HttpPost, ActionName("Delete")]

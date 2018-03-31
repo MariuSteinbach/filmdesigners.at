@@ -4,7 +4,7 @@
     ViewData["Title"] = "Mitglieder";
 }
 
-@await Html.PartialAsync("_SidePartial")
+@await Html.PartialAsync("_DepartmentPartial")
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <div class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
         <div class="row">
@@ -26,11 +26,11 @@
                             <a asp-action="Details" asp-route-id="@item.MemberId">
                                 @if (item.Picture != "")
                                 {
-                                    <img src="/images/@item.Picture" style="height: 90px"/>
+                                    <img src="/images/@item.Picture" style="height: 120px; width: 90px"/>
                                 }
                                 else
                                 {
-                                    <img src="~/images/00000000-0000-0000-0000-000000000000.svg" style="height: 90px">
+                                    <img src="~/images/00000000-0000-0000-0000-000000000000.svg" style="height: 120px; width: 90px">
                                 }
                             </a>
                         </td>
@@ -47,7 +47,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="mailto:@Html.DisplayFor(modelItem => item.EMail)" style="color: white">
+                            <a href="mailto:@Html.DisplayFor(modelItem => item.EMail)">
                                 @Html.DisplayFor(modelItem => item.EMail)
                             </a>
                             <br />
@@ -58,6 +58,16 @@
                             @Html.DisplayFor(modelItem => item.ZIP)
                             @Html.DisplayFor(modelItem => item.City)
                         </td>
+                        @if (User.IsInRole("MembersAdministrator"))
+                        {
+                            <td>
+                                <p>
+                                    <a asp-action="Edit" asp-route-id="@item.MemberId">Edit</a>
+                                </p>
+                                <a asp-action="Upgrade" asp-route-id="@item.MemberId"><i class="fas fa-arrow-up"></i></a>
+                                <a asp-action="Downgrade" asp-route-id="@item.MemberId"><i class="fas fa-arrow-down"></i></a>
+                            </td>
+                        }
                     </tr>
                     }
                 }
