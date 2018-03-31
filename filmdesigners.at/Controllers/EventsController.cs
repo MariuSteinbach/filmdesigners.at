@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using filmdesigners.at.Data;
 using filmdesigners.at.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace filmdesigners.at.Controllers
 {
@@ -20,12 +22,14 @@ namespace filmdesigners.at.Controllers
         }
 
         // GET: Events
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Event.ToListAsync());
+            return View(await _context.Event.OrderByDescending(e => e.Date).ToListAsync());
         }
 
         // GET: Events/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -54,15 +58,34 @@ namespace filmdesigners.at.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventID,Title,Picture,Teaser,Text,Date,Created")] Event @event)
+        public async Task<IActionResult> Create(Event created)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
+                created.Created = DateTime.Now;
+                // create file with picture
+                if (created.Picture != null)
+                {
+                    Guid PictureID = Guid.NewGuid();
+                    string fileType = created.Picture.Split('/')[1].Split(';')[0];
+                    string PicturesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{PictureID}.{fileType}");
+
+                    var bytes = Convert.FromBase64String(created.Picture.Split(',')[1]);
+                    if (bytes.Length > 0)
+                    {
+                        using (var stream = new FileStream(PicturesPath, FileMode.Create))
+                        {
+                            stream.Write(bytes, 0, bytes.Length);
+                            stream.Flush();
+                        }
+                    }
+                    created.Picture = $"{PictureID.ToString()}.{fileType}";
+                }
+                _context.Add(created);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(created);
         }
 
         // GET: Events/Edit/5
@@ -97,6 +120,26 @@ namespace filmdesigners.at.Controllers
             {
                 try
                 {
+                    if (@event.Picture != null)
+                    {
+                        Guid PictureID = Guid.NewGuid();
+                        string fileType = @event.Picture.Split('/')[1].Split(';')[0];
+                        string PicturesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{PictureID}.{fileType}");
+
+                        var bytes = Convert.FromBase64String(@event.Picture.Split(',')[1]);
+                        if (bytes.Length > 0)
+                        {
+                            using (var stream = new FileStream(PicturesPath, FileMode.Create))
+                            {
+                                stream.Write(bytes, 0, bytes.Length);
+                                stream.Flush();
+                            }
+                        }
+                        @event.Picture = $"{PictureID.ToString()}.{fileType}";
+                    }
+                    else{
+                        @event.Picture = _context.Event.Where(e => e.EventID == id).AsNoTracking().First().Picture;
+                    }
                     _context.Update(@event);
                     await _context.SaveChangesAsync();
                 }

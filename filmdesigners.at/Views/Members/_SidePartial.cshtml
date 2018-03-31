@@ -1,36 +1,33 @@
-﻿<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-    <ul class="nav nav-pills flex-column">
-        @foreach(var Job in ViewData["Jobs"] as IEnumerable<Job>)
-        {
-            if(!Job.isPartner)
+﻿<nav class="col-md-2 d-none d-md-block bg-dark sidebar navbar-dark">
+    <div class="sidebar-sticky navbar-dark">
+        <ul class="nav flex-column navbar-nav">
+            @foreach(var Job in ViewData["Jobs"] as IEnumerable<Job>)
             {
-                <li class="nav-item">
-                    <a class="nav-link" href="#">@Job.Name</a>
-                </li>
+                if(!Job.isPartner)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">@Job.Name</a>
+                    </li>
+                }
             }
-        }
-        <div id="partnerAccordion" role="tablist" aria-multiselectable="true">
+        </ul>
+        <div id="partner-accordion" role="tablist" aria-multiselectable="true" class="navbar-nav">
             <a data-toggle="collapse" data-parent="#accordion" href="#partnerCollapse" aria-expanded="true" aria-controls="partnerCollapse" class="nav-link">
                 Partner
             </a>
             <div id="partnerCollapse" class="collapse" role="tabpanel" aria-labelledby="partnerHeading">
                 <ul class="nav nav-pills flex-column partner-nav">
-                    @foreach(var Job in ViewData["Jobs"] as IEnumerable<Job>)
+                @foreach(var Job in ViewData["Jobs"] as IEnumerable<Job>)
+                {
+                    if(Job.isPartner)
                     {
-                        if(Job.isPartner)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">@Job.Name</a>
-                            </li>
-                        }
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">@Job.Name</a>
+                        </li>
                     }
+                }
                 </ul>
             </div>
         </div>
-    </ul>
-    <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Download</a>
-        </li>
-    </ul>
+    </div>
 </nav>

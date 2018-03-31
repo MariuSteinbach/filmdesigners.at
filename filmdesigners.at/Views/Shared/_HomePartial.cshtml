@@ -1,0 +1,60 @@
+<nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+    <div class="sidebar-sticky navbar-dark">
+        <ul class="nav flex-column navbar-nav">
+            @if(ViewData["Title"] == "Home Page")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/">Aktuell <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                  <a class="nav-link" href="/">Aktuell</a>
+                </li>
+            }
+            @if(ViewData["Title"] == "Events")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/Events">Veranstaltungen <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                  <a class="nav-link" href="/Events">Veranstaltungen</a>
+                </li>
+            }
+            <li class="nav-item">
+              <a class="nav-link" href="#">Diagonale Preise</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Wir Gratulieren</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">In Memoriam</a>
+            </li>
+            </ul>
+
+            <ul class="nav navbar-nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Über den Verband</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact">Kontakt | Vorstand</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Mitglied werden</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Impressem</a>
+            </li>
+            </ul>
+
+            <ul class="nav navbar-nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#">VÖF on Facebook</a>
+            </li>
+        </ul>
+        </div>
+</nav>

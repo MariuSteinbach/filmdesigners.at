@@ -4,11 +4,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-@await Html.PartialAsync("_SidePartial")
+@await Html.PartialAsync("_HomePartial")
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 <h1>
     Aktuell
 </h1>
-<div class="row">
     @if (AuthorizationService.AuthorizeAsync(User, new Chapter(), ChapterOperations.Create).Result.Succeeded)
     {
         <p>
@@ -30,6 +30,7 @@
                 <text>|</text>
                 <a asp-action="Delete" asp-route-id="@item.ChapterID">Delete</a>
             }
+            <hr style="border-color: white" />
         </div>
     }
-</div>
+</main>

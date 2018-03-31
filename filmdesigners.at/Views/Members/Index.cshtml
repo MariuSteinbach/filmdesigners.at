@@ -5,100 +5,63 @@
 }
 
 @await Html.PartialAsync("_SidePartial")
-<h2>Mitglieder</h2>
-@if (User.IsInRole("MembersAdministrator"))
-{
-    <p>
-        <a asp-action="Create">Create New Member</a>
-    </p>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-            </th>
-            <th>
-            </th>
-            <th>
-            </th>
-            <th>
-            </th>
-            @if (User.IsInRole("MembersAdministrator"))
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-            }
-            @if (User.Identity.IsAuthenticated)
-            {
-                <th>
-                    Actions
-                </th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        if(item.Status == MemberStatus.Approved || AuthorizationService.AuthorizeAsync(User, item, MemberOperations.ReadMemberState).Result.Succeeded)
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
+        <div class="row">
+            <h2>Mitglieder</h2>
+        </div>
+        @if (User.IsInRole("MembersAdministrator"))
         {
-            <tr>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.MemberId">
-                    @if (item.Picture != "")
-                    {
-                        <img src="/images/@item.Picture" style="height: 100px"/>
-                    }
-                    else
-                    {
-                        <img src="~/images/00000000-0000-0000-0000-000000000000.svg" style="height: 100px">
-                    }
-                </a>
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.MemberId">
-                    <h3>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </h3>
-                </a>
-            </td>
-            <td>
-                <a asp-controller="Jobs" asp-action="Details" asp-route-id="@Html.DisplayFor(modelItem => item.Job.JobId)">
-                    @Html.DisplayFor(modelItem => item.Job.Name)
-                </a>
-            </td>
-            <td>
-                <a href="mailto:@Html.DisplayFor(modelItem => item.EMail)">
-                    @Html.DisplayFor(modelItem => item.EMail)
-                </a>
-                <br />
-                @Html.DisplayFor(modelItem => item.Mobile)
-                <br />
-                @Html.DisplayFor(modelItem => item.Street)
-                <br />
-                @Html.DisplayFor(modelItem => item.ZIP)
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            @if (AuthorizationService.AuthorizeAsync(User, item, MemberOperations.ReadMemberState).Result.Succeeded)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-            }
-            @if (AuthorizationService.AuthorizeAsync(User, item, MemberOperations.Update).Result.Succeeded)
-            {
-                <td>
-                    @if (AuthorizationService.AuthorizeAsync(User, item, MemberOperations.Update).Result.Succeeded || AuthorizationService.AuthorizeAsync(User, item, MemberOperations.Delete).Result.Succeeded)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.MemberId">Edit</a>
-                    }
-                    @if (AuthorizationService.AuthorizeAsync(User, item, MemberOperations.Delete).Result.Succeeded)
-                    {
-                        <a asp-action="Delete" asp-route-id="@item.MemberId">Delete</a>
-                    }
-                </td>
-            }
-        </tr>
+            <p>
+                <a asp-action="Create">Create New Member</a>
+            </p>
         }
-}
-    </tbody>
-</table>
+        <table class="table">
+            <tbody>
+            @foreach (var item in Model) {
+                if(item.Status == MemberStatus.Approved || AuthorizationService.AuthorizeAsync(User, item, MemberOperations.ReadMemberState).Result.Succeeded)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.MemberId">
+                                @if (item.Picture != "")
+                                {
+                                    <img src="/images/@item.Picture" style="height: 90px"/>
+                                }
+                                else
+                                {
+                                    <img src="~/images/00000000-0000-0000-0000-000000000000.svg" style="height: 90px">
+                                }
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.MemberId" style="color: white">
+                                <h3>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </h3>
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-controller="Jobs" asp-action="Details" asp-route-id="@Html.DisplayFor(modelItem => item.Job.JobId)" style="color: white">
+                                @Html.DisplayFor(modelItem => item.Job.Name)
+                            </a>
+                        </td>
+                        <td>
+                            <a href="mailto:@Html.DisplayFor(modelItem => item.EMail)" style="color: white">
+                                @Html.DisplayFor(modelItem => item.EMail)
+                            </a>
+                            <br />
+                            @Html.DisplayFor(modelItem => item.Mobile)
+                            <br />
+                            @Html.DisplayFor(modelItem => item.Street)
+                            <br />
+                            @Html.DisplayFor(modelItem => item.ZIP)
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</main>

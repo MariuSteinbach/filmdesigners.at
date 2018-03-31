@@ -64,5 +64,6 @@ namespace filmdesigners.at.Authorization
         public static readonly string RolesAdministratorsRole = "RolesAdministrator";
         public static readonly string UsersAdministratorsRole = "UsersAdministrator";
         public static readonly string JobsAdministratorsRole = "JobsAdministrator";
+        public static readonly string EventsAdministratorsRole = "EventsAdministrator";
     }
 }
