@@ -32,10 +32,18 @@ namespace filmdesigners.at.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Chapter.OrderByDescending(c => c.Created);
+            var applicationDbContext = _context.Chapter.Where(c => c.Page == "HomeIndex").OrderByDescending(c => c.Created);
             ViewData["SubPage"] = "Index";
             return View(await applicationDbContext.ToListAsync());
             
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Congratulations()
+        {
+            var applicationDbContext = _context.Chapter.Where(c => c.Page == "HomeCongratulations").OrderByDescending(c => c.Created);
+            ViewData["SubPage"] = "Congratulations";
+            return View(await applicationDbContext.ToListAsync());
         }
 
         public IActionResult Create()

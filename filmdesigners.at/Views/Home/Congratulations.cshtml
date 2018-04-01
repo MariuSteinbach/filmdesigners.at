@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<filmdesigners.at.Models.Chapter>
 
 @{
-    ViewData["Title"] = "News";
+    ViewData["Title"] = "Congratulations";
 }
 
 @await Html.PartialAsync("_HomePartial")
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 <h1>
-    Aktuell
+    Congratulations
 </h1>
     @if (AuthorizationService.AuthorizeAsync(User, new Chapter(), ChapterOperations.Create).Result.Succeeded)
     {

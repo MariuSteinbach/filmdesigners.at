@@ -1,33 +1,90 @@
 ﻿<nav class="col-md-2 d-none d-md-block bg-dark sidebar navbar-dark">
     <div class="sidebar-sticky navbar-dark">
         <ul class="nav flex-column navbar-nav">
+            @if(ViewData["Job"] == null)
+            {
+                <li class="nav-item">
+                    <a class="nav-link active" asp-action="Index">Alle</a>
+                </li>
+            }
+            else
+            {
+                 <li class="nav-item">
+                    <a class="nav-link" asp-action="Index">Alle</a>
+                </li>
+            }
             @foreach(var Job in ViewData["Jobs"] as IEnumerable<Job>)
             {
                 if(!Job.isPartner)
                 {
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">@Job.Name</a>
-                    </li>
+                    if(ViewData["Job"] == Job)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                        </li>
+                    }
+                    else 
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                        </li>
+                    }
                 }
             }
         </ul>
-        <div id="partner-accordion" role="tablist" aria-multiselectable="true" class="navbar-nav">
-            <a data-toggle="collapse" data-parent="#accordion" href="#partnerCollapse" aria-expanded="true" aria-controls="partnerCollapse" class="nav-link">
+        <div id="partner-accordion" aria-multiselectable="true" class="navbar-nav">
+            <a data-toggle="collapse" data-parent="#partner-accordion" href="#partner-Collapse" aria-expanded="false" aria-controls="partner-Collapse" class="nav-link">
                 Partner
             </a>
-            <div id="partnerCollapse" class="collapse" role="tabpanel" aria-labelledby="partnerHeading">
-                <ul class="nav nav-pills flex-column partner-nav">
+            @if(ViewData["Job"] != null && ((Job)ViewData["Job"]).isPartner)
+            {
+                <div id="partner-Collapse" class="collapse show" role="tabpanel" aria-labelledby="partnerHeading"><ul class="nav flex-column partner-nav">
                 @foreach(var Job in ViewData["Jobs"] as IEnumerable<Job>)
                 {
                     if(Job.isPartner)
                     {
+                        if(ViewData["Job"] == Job)
+                    {
                         <li class="nav-item">
-                            <a class="nav-link" href="#">@Job.Name</a>
+                            <a class="nav-link active" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
                         </li>
+                    }
+                    else 
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                        </li>
+                    }
                     }
                 }
                 </ul>
             </div>
+            }
+            else
+            {
+                <div id="partner-Collapse" class="collapse" role="tabpanel" aria-labelledby="partnerHeading">
+                <ul class="nav flex-column partner-nav">
+                @foreach(var Job in ViewData["Jobs"] as IEnumerable<Job>)
+                {
+                    if(Job.isPartner)
+                    {
+                        if(ViewData["Job"] == Job)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                        </li>
+                    }
+                    else 
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                        </li>
+                    }
+                    }
+                }
+                </ul>
+            </div>
+            }
         </div>
     </div>
 </nav>

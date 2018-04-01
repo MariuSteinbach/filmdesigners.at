@@ -1,7 +1,7 @@
 <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
     <div class="sidebar-sticky navbar-dark">
         <ul class="nav flex-column navbar-nav">
-            @if(ViewData["Title"] == "Home Page")
+            @if(ViewData["Title"] == "News")
             {
                 <li class="nav-item">
                   <a class="nav-link active" href="/">Aktuell <span class="sr-only">(current)</span></a>
@@ -25,36 +25,99 @@
                   <a class="nav-link" href="/Events">Veranstaltungen</a>
                 </li>
             }
-            <li class="nav-item">
-              <a class="nav-link" href="#">Diagonale Preise</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Wir Gratulieren</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">In Memoriam</a>
-            </li>
+            @if(ViewData["Title"] == "Awards")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/Awards">Diagonale Preise <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                  <a class="nav-link" href="/Awards">Diagonale Preise</a>
+                </li>
+            }
+            @if(ViewData["Title"] == "Congratulations")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/Home/Congratulations">Wir Gratulieren <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+              <a class="nav-link" href="/Home/Congratulations">Wir Gratulieren</a>
+                </li>
+            }
+            @if(ViewData["Title"] == "Memoriam")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/Memoriam">In Memoriam <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                  <a class="nav-link" href="/Memoriam">In Memoriam</a>
+                </li>
+            }
             </ul>
 
             <ul class="nav navbar-nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Über den Verband</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/contact">Kontakt | Vorstand</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Mitglied werden</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Impressem</a>
-            </li>
-            </ul>
+            @if(ViewData["Title"] == "About")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/About">Uber den Verband <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                  <a class="nav-link" href="/About">Uber den Verband</a>
+                </li>
+            }
+            @if(ViewData["Title"] == "Contact")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/Contact">Kontakt <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                  <a class="nav-link" href="/Contact">Kontakt</a>
+                </li>
+            }
+            @if(ViewData["Title"] == "Join")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/Join">Mitglied werden <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                  <a class="nav-link" href="/Join">Mitglied werden</a>
+                </li>
+            }
+            @if(ViewData["Title"] == "Imprint")
+            {
+                <li class="nav-item">
+                  <a class="nav-link active" href="/Imprint">Impressum <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                  <a class="nav-link" href="/Imprint">Impressum</a>
+                </li>
+            }
+                </ul>
 
-            <ul class="nav navbar-nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#">VÖF on Facebook</a>
-            </li>
+                <ul class="nav navbar-nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.facebook.com/pages/V%C3%96F/293356784115342?ref=ts&fref=ts" target="_blank">VÖF on Facebook</a>
+                </li>
         </ul>
         </div>
 </nav>

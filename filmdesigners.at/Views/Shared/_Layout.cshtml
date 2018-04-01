@@ -42,18 +42,54 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Members" asp-action="Index">Mitglieder</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Jobs" asp-action="Index">Departments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">Projekte</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Members" asp-action="Index">Galerie</a>
-                </li>
+                @if(ViewData["Title"] == "Members")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Members" asp-action="Index">Mitglieder</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Members" asp-action="Index">Mitglieder</a>
+                    </li>
+                }
+                @if(ViewData["Title"] == "Departments")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Jobs" asp-action="Index">Departments</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Jobs" asp-action="Index">Departments</a>
+                    </li>
+                }
+                @if(ViewData["Title"] == "Projects")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Projects" asp-action="Index">Projekte</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">Projekte</a>
+                    </li>
+                }
+                @if(ViewData["Title"] == "Gallery")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Gallery" asp-action="Index">Gallerie</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Gallery" asp-action="Index">Gallerie</a>
+                    </li>
+                }
             </ul>
             <form class="form-inline mt-2 mt-md-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

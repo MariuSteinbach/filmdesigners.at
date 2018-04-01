@@ -31,13 +31,22 @@ namespace filmdesigners.at.Controllers
             _emailSender = emailSender;
         }
 
-        // GET: Members
+        // GET: Members/5 (Department
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string job)
         {
-            var Jobs = _context.Job.ToArray();
+            
+            var Jobs = _context.Job.OrderBy(j => j.Priority).ToArray();
             ViewData["Jobs"] = Jobs;
-            return View(await _context.Member.OrderBy(m => m.Priority).ToListAsync());
+            if (job != null)
+            {
+                ViewData["Job"] = _context.Job.Where(j => j.JobId == job).First();
+                return View(await _context.Member.Where(m => m.JobId == job).OrderBy(m => m.Priority).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Member.OrderBy(m => m.Priority).ToListAsync());
+            }
         }
 
         // GET: Members/Details/5

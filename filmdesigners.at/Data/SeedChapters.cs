@@ -29,6 +29,7 @@ namespace filmdesigners.at.Data
                         Text = "Am 17. März wurden in Graz die Diagonale-Filmpreise verliehen," +
                             "<br style=\"\">die vom VÖF initiierten und von der VdFS mit je € 3.000,- dotierten Preise gingen an:<br style=\"\">" +
                             "Bestes Szenenbild: Paul Horn<br style=\"\">Bestes Kostümbild: Peter Paradies<br style=\"\">beide für \"Phaidros\" A 2018, Regie Mara Mattuschka",
+                        Page = "HomeIndex",
                         Created = DateTime.Now,
                         Edited = new DateTime()
                     };
@@ -41,6 +42,7 @@ namespace filmdesigners.at.Data
                             "Katharina Wöppermann</a>,<br style=\"\">Bestes Kostümbild an&nbsp;" +
                             "<a href=\"http://www.filmdesigners.at/index.php?ctrl=mitglieder&amp;mid=117&amp;bid=4&amp;spr=4\" class=\"normlink\" style=\"cursor: pointer;\">" +
                             "Veronika Albert</a>, beide für \"Licht\" Regie Barabara Albert",
+                        Page = "HomeIndex",
                         Created = DateTime.Now.AddDays(-1),
                         Edited = new DateTime()
                     };

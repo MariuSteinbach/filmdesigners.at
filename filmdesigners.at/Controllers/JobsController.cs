@@ -24,7 +24,7 @@ namespace filmdesigners.at.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Job.ToListAsync());
+            return View(await _context.Job.OrderBy(j => j.Priority).ToListAsync());
         }
 
         // GET: Jobs/Details/5

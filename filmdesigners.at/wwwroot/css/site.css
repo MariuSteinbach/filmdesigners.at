@@ -37,3 +37,12 @@ a:hover {
     color: #cb8d4a
 
 }
+
+::selection {
+    background: #cb8d4a /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+    background: #cb8d4a /* Gecko Browsers */
+}  
+
