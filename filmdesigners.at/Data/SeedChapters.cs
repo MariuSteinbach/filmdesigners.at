@@ -62,7 +62,7 @@ namespace filmdesigners.at.Data
                     {
                         Heading = "VÖF-PUNSCH 2017",
                         Text = "<p>" +
-                            "<img src=\"/images/aeb9f938-92fc-4400-9d2e-ba13c191915c.jpeg\" alt=\"punsch.jpg\" style=\"width: 496px; \"><br></p>" +
+                            "<img src=\"/images/aeb9f938-92fc-4400-9d2e-ba13c191915c.jpeg\" alt=\"punsch.jpg\" style=\"width: 496px; \" class=\"img-fluid\"><br></p>" +
                             "<p>Wie in den vergangenen Jahren lud der VÖF zum Punsch im Hof des Silberwirt, diesmal am 4. Dezember.<br style=\"\">" +
                             "Zahlreiche Mitglieder und Gäste erfreuten sich in vorweihnachtlicher Stimmung, an Atmosphäre, Speis &amp; Trank<br style=\"\"><br style=\"\">" +
                             "<a href=\"https://www.dropbox.com/sh/qz7hyglsn5fezp5/AAA-QpfiyaG3QH68ACp2kXXXa?dl=0\" class=\"normlink\" target=\"_blank\" " +
@@ -75,12 +75,12 @@ namespace filmdesigners.at.Data
                     {
                         Heading = "EUROPEAN FEDERATION for PRODUCTION & COSTUME DESIGN",
                         Text = "<p>" +
-                            "<img src=\"/images/c0ea335f-a03a-4ba1-bb65-3327833042a6.jpeg\" alt=\"1.jpg\" style=\"width: 496px; \"></p>" +
+                            "<img src=\"/images/c0ea335f-a03a-4ba1-bb65-3327833042a6.jpeg\" alt=\"1.jpg\" style=\"width: 496px; \" class=\"img-fluid\"></p>" +
                             "<p>2. offizielles Treffen in Rom - Cinecittà<br style=\"\"><br style=\"\">" +
                             "von links nach rechts: Carlo Poggioli (ASC), Maximilian Lange (VSK),&nbsp;" +
                             "<a href=\"http://filmdesigners.at/index.php?ctrl=mitglieder&amp;mid=4&amp;bid=1&amp;spr=4\" class=\"normlink\" target=\"_blank\" " +
                             "style=\"cursor: pointer;\">Alexandra Maringer</a>(VÖF), Michel Barthelemy (ADC), Monica Rottmeyer (SSFV), Sarah Maria Fritsche (DS)</p><p>" +
-                            "<img src=\"/images/13e6303e-5019-45ed-a1ca-a62890c4b69d.jpeg\" style=\"width: 496px;\" alt=\"2.jpg\"><br></p><p>" +
+                            "<img src=\"/images/13e6303e-5019-45ed-a1ca-a62890c4b69d.jpeg\" style=\"width: 496px;\" alt=\"2.jpg\" class=\"img-fluid\"><br></p><p>" +
                             "1. Reihe von links nach rechts: Chloë Cambournac (ADC), Anja Wessel (DS), Livia Borgognoni (ASC),&nbsp;" +
                             "<a href=\"http://filmdesigners.at/index.php?ctrl=mitglieder&amp;mid=40&amp;bid=4&amp;spr=4\" class=\"normlink\" target=\"_blank\" " +
                             "style=\"cursor: pointer;\">Birgit Hutter</a>&nbsp;(VÖF), Michèle Pezzin (AFCCA), Laurent Tesseyre (ADC, MAD)<br style=\"\">" +
@@ -100,7 +100,7 @@ namespace filmdesigners.at.Data
                     {
                         Heading = "30 Jahre VÖF",
                         Text = "<p style=\"margin-bottom: 0px; line-height: 14px; padding-bottom: 4px;\">" +
-                            "<img src=\"/images/61a62f2d-5d09-47ba-9dfa-822c05d0259c.jpeg\" alt=\"30.jpg\" style=\"width: 248px; float: left;\" class=\"note-float-left\">" +
+                            "<img src=\"/images/61a62f2d-5d09-47ba-9dfa-822c05d0259c.jpeg\" alt=\"30.jpg\" style=\"width: 248px; float: left;\" class=\"note-float-left img-fluid\">" +
                             "Unser Verband wurde vor 30 Jahren gegründet und dieses Jubiläum wurde im Herbst 2017 gebührend gefeiert!<br>" +
                             "</p>" +
                             "<p style=\"margin-bottom: 0px; line-height: 14px; padding-bottom: 4px; \">" +
