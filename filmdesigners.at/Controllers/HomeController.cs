@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using filmdesigners.at.Authorization;
 using System.IO;
+using HtmlAgilityPack;
 
 namespace filmdesigners.at.Controllers
 {
@@ -107,6 +108,19 @@ namespace filmdesigners.at.Controllers
                     }
                     chapter.Text = chapter.Text.Replace($"data:image/{fileType};base64,{base64data}", $"/images/{PictureID}.{fileType}").Replace("data-filename", "alt");
                 }
+                // Make Images responsive
+                HtmlDocument Document = new HtmlDocument();
+                Document.LoadHtml(chapter.Text);
+                IEnumerable<HtmlNode> Images = Document
+                    .DocumentNode
+                    .Descendants("img").ToList();
+                foreach(HtmlNode Image in Document
+                    .DocumentNode
+                    .Descendants("img").ToList())
+                {
+                    Image.Attributes.Add("class", "img-fluid");
+                }
+                chapter.Text = Document.DocumentNode.OuterHtml;
                 _context.Add(chapter);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -149,31 +163,46 @@ namespace filmdesigners.at.Controllers
                 return new ChallengeResult();
             }
 
-            chapter.Edited = DateTime.Now;
 
-            for (; ; )
-            {
-                if(!chapter.Text.Contains("data:image"))
-                {
-                    break;
-                }
-                Guid PictureID = Guid.NewGuid();
-                string fileType = chapter.Text.Split(new string[] { "data:image/" }, StringSplitOptions.None)[1].Split(';')[0];
-                string PicturesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{PictureID}.{fileType}");
-                string base64data = chapter.Text.Split(new string[] { "data:image/" }, StringSplitOptions.None)[1].Split(',')[1].Split('"')[0];
-                var bytes = Convert.FromBase64String(base64data);
-                if (bytes.Length > 0)
-                {
-                    using (var stream = new FileStream(PicturesPath, FileMode.Create))
-                    {
-                        stream.Write(bytes, 0, bytes.Length);
-                        stream.Flush();
-                    }
-                }
-                chapter.Text = chapter.Text.Replace($"data:image/{fileType};base64,{base64data}", $"/images/{PictureID}.{fileType}").Replace("data-filename", "alt");
-            }
+
+
             if (ModelState.IsValid)
             {
+                for (; ; )
+                {
+                    if (!chapter.Text.Contains("data:image"))
+                    {
+                        break;
+                    }
+                    Guid PictureID = Guid.NewGuid();
+                    string fileType = chapter.Text.Split(new string[] { "data:image/" }, StringSplitOptions.None)[1].Split(';')[0];
+                    string PicturesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{PictureID}.{fileType}");
+                    string base64data = chapter.Text.Split(new string[] { "data:image/" }, StringSplitOptions.None)[1].Split(',')[1].Split('"')[0];
+                    var bytes = Convert.FromBase64String(base64data);
+                    if (bytes.Length > 0)
+                    {
+                        using (var stream = new FileStream(PicturesPath, FileMode.Create))
+                        {
+                            stream.Write(bytes, 0, bytes.Length);
+                            stream.Flush();
+                        }
+                    }
+                    chapter.Text = chapter.Text.Replace($"data:image/{fileType};base64,{base64data}", $"/images/{PictureID}.{fileType}").Replace("data-filename", "alt");
+                }
+                // Make Images responsive
+                HtmlDocument Document = new HtmlDocument();
+                Document.LoadHtml(chapter.Text);
+                IEnumerable<HtmlNode> Images = Document
+                    .DocumentNode
+                    .Descendants("img").ToList();
+                foreach (HtmlNode Image in Document
+                    .DocumentNode
+                    .Descendants("img").ToList())
+                {
+                    Image.Attributes.Add("class", "img-fluid");
+                }
+                chapter.Text = Document.DocumentNode.OuterHtml;
+                chapter.Edited = DateTime.Now;
                 try
                 {
                     var oldchapter = await _context.Chapter
