@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/">
+            <img src="~/images/Logo.svg" height="30" width="75" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                @if(ViewData["Title"] == "Departments")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Jobs" asp-action="Index">Mitglieder</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Jobs" asp-action="Index">Mitglieder</a>
+                    </li>
+                }
+                @if(ViewData["Title"] == "Projects")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Projects" asp-action="Index">Projekte</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">Projekte</a>
+                    </li>
+                }
+                @if(ViewData["Title"] == "Gallery")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Gallery" asp-action="Index">Gallerie</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Gallery" asp-action="Index">Gallerie</a>
+                    </li>
+                }
+            </ul>
+            <form class="form-inline mt-2 mt-md-0" asp-controller="Home" asp-action="Search">
+                <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            @await Html.PartialAsync("_LoginPartial")
+        </div>
+    </nav>

@@ -44,5 +44,9 @@ a:hover {
 
 ::-moz-selection {
     background: #cb8d4a /* Gecko Browsers */
-}  
+}
 
+.card {
+    background-color: #0e2533
+
+}

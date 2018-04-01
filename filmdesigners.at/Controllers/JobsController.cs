@@ -24,6 +24,8 @@ namespace filmdesigners.at.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            var Jobs = _context.Job.OrderBy(j => j.Priority).ToArray();
+            ViewData["Jobs"] = Jobs;
             return View(await _context.Job.OrderBy(j => j.Priority).ToListAsync());
         }
 

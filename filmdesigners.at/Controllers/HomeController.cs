@@ -39,6 +39,26 @@ namespace filmdesigners.at.Controllers
         }
 
         [AllowAnonymous]
+        public async Task<IActionResult> Search(string query)
+        {
+            if(query.Length > 2)
+            {
+                SearchResult Result = new SearchResult();
+                Result.Awards = await _context.Award.Where(a => a.Name.Contains(query)).ToListAsync();
+                Result.Chapter = await _context.Chapter.Where(c => c.Heading.Contains(query)).ToListAsync();
+                Result.Event = await _context.Event.Where(e => e.Title.Contains(query)).ToListAsync();
+                Result.Job = await _context.Job.Where(j => j.Name.Contains(query)).ToListAsync();
+                Result.Member = await _context.Member.Where(m => m.Name.Contains(query)).ToListAsync();
+                Result.Project = await _context.Project.Where(p => p.Name.Contains(query)).ToListAsync();
+                return View(Result);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Congratulations()
         {
             var applicationDbContext = _context.Chapter.Where(c => c.Page == "HomeCongratulations").OrderByDescending(c => c.Created);

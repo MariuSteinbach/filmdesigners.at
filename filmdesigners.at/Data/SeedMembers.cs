@@ -352,7 +352,7 @@ namespace filmdesigners.at.Data
                     {
                         OwnerID = UThomasVogel.Id,
                         JobId = Szenenbild.Result.JobId,
-                        Name = "Thomas Vogel",
+                        Name = "Thomas Vögel",
                         Male = true,
                         Street = "Fassziehergasse 5",
                         ZIP = 1070,

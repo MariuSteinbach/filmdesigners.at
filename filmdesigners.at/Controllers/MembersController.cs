@@ -176,20 +176,23 @@ namespace filmdesigners.at.Controllers
                 }
             }
             // create file with picture
-            Guid PictureID = Guid.NewGuid();
-            string fileType = member.Picture.Split('/')[1].Split(';')[0];
-            string PicturesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{PictureID}.{fileType}");
-
-            var bytes = Convert.FromBase64String(member.Picture.Split(',')[1]);
-            if (bytes.Length > 0)
+            if (editModel.Picture != null)
             {
-                using (var stream = new FileStream(PicturesPath, FileMode.Create))
+                Guid PictureID = Guid.NewGuid();
+                string fileType = member.Picture.Split('/')[1].Split(';')[0];
+                string PicturesPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", $"{PictureID}.{fileType}");
+
+                var bytes = Convert.FromBase64String(member.Picture.Split(',')[1]);
+                if (bytes.Length > 0)
                 {
-                    stream.Write(bytes, 0, bytes.Length);
-                    stream.Flush();
+                    using (var stream = new FileStream(PicturesPath, FileMode.Create))
+                    {
+                        stream.Write(bytes, 0, bytes.Length);
+                        stream.Flush();
+                    }
                 }
+                member.Picture = $"{PictureID.ToString()}.{fileType}";
             }
-            member.Picture = $"{PictureID.ToString()}.{fileType}";
             _context.Update(member);
             await _context.SaveChangesAsync();
 

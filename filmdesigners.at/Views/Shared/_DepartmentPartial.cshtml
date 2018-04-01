@@ -1,18 +1,6 @@
 ﻿<nav class="col-md-2 d-none d-md-block bg-dark sidebar navbar-dark">
     <div class="sidebar-sticky navbar-dark">
         <ul class="nav flex-column navbar-nav">
-            @if(ViewData["Job"] == null)
-            {
-                <li class="nav-item">
-                    <a class="nav-link active" asp-action="Index">Alle</a>
-                </li>
-            }
-            else
-            {
-                 <li class="nav-item">
-                    <a class="nav-link" asp-action="Index">Alle</a>
-                </li>
-            }
             @foreach(var Job in ViewData["Jobs"] as IEnumerable<Job>)
             {
                 if(!Job.isPartner)
@@ -20,13 +8,13 @@
                     if(ViewData["Job"] == Job)
                     {
                         <li class="nav-item">
-                            <a class="nav-link active" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                            <a class="nav-link active" asp-controller="Members" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
                         </li>
                     }
                     else 
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                            <a class="nav-link" asp-controller="Members" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
                         </li>
                     }
                 }
@@ -46,13 +34,13 @@
                         if(ViewData["Job"] == Job)
                     {
                         <li class="nav-item">
-                            <a class="nav-link active" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                            <a class="nav-link active" asp-action="Index" asp-controller="Members" asp-route-job="@Job.JobId">@Job.Name</a>
                         </li>
                     }
                     else 
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                            <a class="nav-link" asp-action="Index" asp-controller="Members" asp-route-job="@Job.JobId">@Job.Name</a>
                         </li>
                     }
                     }
@@ -71,19 +59,32 @@
                         if(ViewData["Job"] == Job)
                     {
                         <li class="nav-item">
-                            <a class="nav-link active" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                            <a class="nav-link active" asp-action="Index" asp-controller="Members" asp-route-job="@Job.JobId">@Job.Name</a>
                         </li>
                     }
                     else 
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="Index" asp-route-job="@Job.JobId">@Job.Name</a>
+                            <a class="nav-link" asp-action="Index" asp-controller="Members" asp-route-job="@Job.JobId">@Job.Name</a>
                         </li>
                     }
                     }
                 }
                 </ul>
             </div>
+            }
+
+            @if(ViewData["Job"] == null)
+            {
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Members" asp-action="Index">Alle</a>
+                </li>
+            }
+            else
+            {
+                 <li class="nav-item">
+                    <a class="nav-link" asp-controller="Members" asp-action="Index">Alle</a>
+                </li>
             }
         </div>
     </div>
