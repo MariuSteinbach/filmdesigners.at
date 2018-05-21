@@ -40,5 +40,7 @@ namespace filmdesigners.at.Data
         public DbSet<filmdesigners.at.Models.Event> Event { get; set; }
 
         public DbSet<filmdesigners.at.Models.OldUrl> OldUrl { get; set; }
+
+        public DbSet<filmdesigners.at.Models.DSGVOAnswer> DSGVOAnswer { get; set; }
     }
 }
