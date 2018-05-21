@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using filmdesigners.at.Data;
 using filmdesigners.at.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace filmdesigners.at.Controllers
 {
     public class DSGVOAnswersController : Controller
     {
         private readonly ApplicationDbContext _context;
+		private IHttpContextAccessor _accessor;
 
-        public DSGVOAnswersController(ApplicationDbContext context)
+		public DSGVOAnswersController(ApplicationDbContext context, IHttpContextAccessor accessor)
         {
             _context = context;
+			_accessor = accessor;
         }
 
         // GET: DSGVOAnswers
@@ -25,6 +29,74 @@ namespace filmdesigners.at.Controllers
             return View(await _context.DSGVOAnswer.ToListAsync());
         }
 
+		// GET: Accept
+        [AllowAnonymous]
+		public async Task<IActionResult> Accept(int? member, string email)
+		{
+            if(member == null || email == null)
+			{
+				return BadRequest();
+			}
+            
+			var DSGVOAnswer = await _context.DSGVOAnswer
+											.SingleOrDefaultAsync(m => m.Member == member);
+			if (DSGVOAnswer != null)
+			{
+				//UPDATE
+				DSGVOAnswer.Accepted = true;
+				_context.Update(DSGVOAnswer);
+				await _context.SaveChangesAsync();
+				return View(DSGVOAnswer);
+			}
+			else
+			{
+				DSGVOAnswer = new DSGVOAnswer
+				{
+					Member = (int)member,
+					Email = email,
+					Accepted = true,
+					AcceptedAt = DateTime.UtcNow,
+					AcceptedFrom = _accessor.HttpContext.Connection.RemoteIpAddress.ToString()
+				};
+				_context.Add(DSGVOAnswer);
+				await _context.SaveChangesAsync();
+				return View(DSGVOAnswer);
+			}
+		}
+        
+		[AllowAnonymous]
+        public async Task<IActionResult> Decline(int? member, string email)
+        {
+            if (member == null || email == null)
+            {
+                return BadRequest();
+            }
+
+            var DSGVOAnswer = await _context.DSGVOAnswer
+                                            .SingleOrDefaultAsync(m => m.Member == member);
+            if (DSGVOAnswer != null)
+            {
+				//UPDATE
+				DSGVOAnswer.Accepted = false;
+                _context.Update(DSGVOAnswer);
+                await _context.SaveChangesAsync();
+                return View(DSGVOAnswer);
+            }
+            else
+            {
+                DSGVOAnswer = new DSGVOAnswer
+                {
+                    Member = (int)member,
+                    Email = email,
+                    Accepted = false,
+                    AcceptedAt = DateTime.UtcNow,
+                    AcceptedFrom = _accessor.HttpContext.Connection.RemoteIpAddress.ToString()
+                };
+                _context.Add(DSGVOAnswer);
+                await _context.SaveChangesAsync();
+                return View(DSGVOAnswer);
+            }
+        }
         // GET: DSGVOAnswers/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -35,5 +35,9 @@
     <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
     <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
     <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <Content Remove="Views\DSGVOAnswers\Accept.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\DSGVOAnswers\Accept.cshtml" />
   </ItemGroup>
 </Project>

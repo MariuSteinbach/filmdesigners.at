@@ -8,6 +8,11 @@ namespace filmdesigners.at.Models
 			get;
 			set;
 		}
+		public int Member
+		{
+			get;
+			set;
+		}
         public string Email
     	{
     		get;
