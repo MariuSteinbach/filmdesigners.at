@@ -43,6 +43,18 @@
                         <a class="nav-link" asp-area="" asp-controller="Gallery" asp-action="Index">Gallerie</a>
                     </li>
                 }
+                @if(ViewData["Title"] == "Administration" && User.IsInRole("NewslettersAdministrator"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
+                    </li>
+                }
+                else if(User.IsInRole("NewslettersAdministrator"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
+                    </li>
+                }
             </ul>
             <form class="form-inline mt-2 mt-md-0" asp-controller="Home" asp-action="Search">
                 <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search" aria-label="Search">

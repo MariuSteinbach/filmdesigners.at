@@ -128,6 +128,7 @@ namespace filmdesigners.at.Data
                     await EnsureRole(serviceProvider, Admin.Id, Constants.UsersAdministratorsRole);
                     await EnsureRole(serviceProvider, Admin.Id, Constants.JobsAdministratorsRole);
                     await EnsureRole(serviceProvider, Admin.Id, Constants.EventsAdministratorsRole);
+                    await EnsureRole(serviceProvider, Admin.Id, Constants.NewslettersAdministratorsRole);
                     await SeedJobs.Initialize(serviceProvider);
                 }
                 await SeedJobs.Initialize(serviceProvider);
