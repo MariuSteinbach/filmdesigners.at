@@ -103,6 +103,11 @@ namespace filmdesigners.at
             services.AddSingleton<IAuthorizationHandler, MemberManagerAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, ChapterAdministratorAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, EnrollmentAdministratorAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, EventsAdministratorAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, JobsAdministratorAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, NewslettersAdministratorAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, RolesAdministratorAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, UsersAdministratorAuthorizationHandler>();
 
 
 

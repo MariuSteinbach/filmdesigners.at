@@ -7,7 +7,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                @if(ViewData["Title"] == "Departments")
+                @if(ViewData["Title"] == "Members")
                 {
                     <li class="nav-item">
                         <a class="nav-link active" asp-area="" asp-controller="Jobs" asp-action="Index">Mitglieder</a>
@@ -49,7 +49,7 @@
                         <a class="nav-link active" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
                     </li>
                 }
-                else if(User.IsInRole("NewslettersAdministrator"))
+                else
                 {
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
