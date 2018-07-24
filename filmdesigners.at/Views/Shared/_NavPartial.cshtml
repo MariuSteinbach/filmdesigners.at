@@ -49,7 +49,7 @@
                         <a class="nav-link active" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
                     </li>
                 }
-                else
+                else if (User.IsInRole("NewslettersAdministrator"))
                 {
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
