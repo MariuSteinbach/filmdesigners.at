@@ -42,18 +42,30 @@
             @foreach (var year in (List<List<Enrollment>>)ViewData["Enrollments"])
             {
                 <div class="card">
-                    <div class="card-header project-toggle" id="@year.First().Project.Date.Year">
+                    <div class="card-header project-toggle" id="@year.First().Project.Date.Year-h">
                         <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#@year.First().Project.Date.Year" aria-expanded="true" aria-controls="@year.First().Project.Date.Year">
+                            <a class="btn" data-toggle="collapse" data-target="#@year.First().Project.Date.Year" aria-expanded="true" aria-controls="@year.First().Project.Date.Year">
                                 @year.First().Project.Date.Year
-                            </button>
+                            </a>
                         </h5>
                     </div>
                     @if(firstProjectCard)
                     {
-                            <div id="@year.First().Project.Date.Year" class="collapse show" aria-labelledby="@year.First().Project.Date.Year" data-parent="#projectsAccordion">
+                            <div id="@year.First().Project.Date.Year" class="collapse show" aria-labelledby="@year.First().Project.Date.Year-h" data-parent="#projectsAccordion">
                             <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                @foreach(var enrollment in year)
+                                {
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                @enrollment.Project.Name
+                                            </div>
+                                            <div class="col-6">
+                                                @enrollment.Job.Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                         firstProjectCard = false;
@@ -63,7 +75,19 @@
 
                             <div id="@year.First().Project.Date.Year" class="collapse" aria-labelledby="@year.First().Project.Date.Year" data-parent="#projectsAccordion">
                             <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                @foreach(var enrollment in year)
+                                {
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                @enrollment.Project.Name
+                                            </div>
+                                            <div class="col-6">
+                                                @enrollment.Job.Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }
@@ -71,10 +95,13 @@
             }
         </div>
     </div>
-        </div>
+</div>
+@if (AuthorizationService.AuthorizeAsync(User, new Enrollment(), EnrollmentOperations.Create).Result.Succeeded)
+{
 <div class=container-fluid>
     @Html.Partial("~/Views/Enrollments/Create.cshtml", new Enrollment())
 </div>
+}
 @if (Model.Status != MemberStatus.Approved)
 {
     @if (AuthorizationService.AuthorizeAsync(User, Model, MemberOperations.Approve).Result.Succeeded)

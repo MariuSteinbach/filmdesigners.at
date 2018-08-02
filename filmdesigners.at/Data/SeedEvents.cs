@@ -127,7 +127,7 @@ namespace filmdesigners.at.Data
                     context.Add(Punsch2017);
 
                     await context.SaveChangesAsync();
-
+                    await SeedEnrollments.Initialize(serviceProvider);
                 }
             }
         }
