@@ -67,7 +67,15 @@ namespace filmdesigners.at.Controllers
             {
                 return NotFound();
             }
-
+            var Jobs = _context.Job.OrderBy(j => j.Priority).ToArray();
+            ViewData["Jobs"] = Jobs;
+            List<Enrollment> Enrollments = _context.Enrollment.Where(e => e.Member == member).ToList();
+            foreach(Enrollment e in Enrollments)
+            {
+                e.Project = await _context.Project.Where(p => p.ProjectID == e.ProjectID).FirstOrDefaultAsync();
+            }
+            var groupedEnrollments = Enrollments.GroupBy(e => e.Project.Date.Year).Select(grp => grp.ToList()).ToList();
+            ViewData["Enrollments"] = groupedEnrollments;
             ViewData["MemberID"] = new SelectList(_context.Member, "MemberId", "Name");
             ViewData["ProjectID"] = new SelectList(_context.Project, "ProjectID", "Name");
             ViewData["JobID"] = new SelectList(_context.Job, "JobId", "Name");

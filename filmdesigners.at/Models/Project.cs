@@ -26,6 +26,10 @@ namespace filmdesigners.at.Models
         public string Link { get; set; } 
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }
+        public string ProjectHID()
+        {
+            return $"h-{this.ProjectID}";
+        }
     }
     public enum ProjectType
     {

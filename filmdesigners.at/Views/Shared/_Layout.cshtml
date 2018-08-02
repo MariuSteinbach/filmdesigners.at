@@ -33,13 +33,10 @@
     </environment>
 </head>
 <body>
-    @await Html.PartialAsync("_NavPartial")
-    <div class="container-fluid">
-        <div class="row">
-            @RenderBody()
-        </div>
+    <div class="row">
+        @await Html.PartialAsync("_NavPartial")
+        @RenderBody()
     </div>
-
     <footer class="footer">
         <div class="container">
             <!--span class="text-muted">&copy; @DateTime.Now.Year - VÖF.</!--span-->

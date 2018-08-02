@@ -41,9 +41,9 @@ namespace filmdesigners.at
                 //add framework services.
                 services.AddDbContext<ApplicationDbContext>(options =>
                     //Old LocalDB Config
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                 // NEW DOCKER SQL SERVER
-                //options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
+                options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -71,9 +71,9 @@ namespace filmdesigners.at
             //add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 //Old LocalDB Config
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                 // NEW DOCKER SQL SERVER
-                //options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
+                options.UseSqlServer($"Data Source=localhost;Initial Catalog=filmdesigners.at;User ID=sa;Password=123..abc"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {

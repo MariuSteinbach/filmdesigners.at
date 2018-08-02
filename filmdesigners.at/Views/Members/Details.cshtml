@@ -1,190 +1,78 @@
 ﻿@model filmdesigners.at.Models.Member
-
 @{
     ViewData["Title"] = "Details";
+    bool firstProjectCard = true;
 }
 
-<h2>Details</h2>
+@await Html.PartialAsync("_DepartmentPartial")
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
+    <h2>Details</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="/images/@Html.DisplayFor(model => model.Picture)" />
+            </div>
+            <div class="col-md-8">
+                <h3>
+                    @Html.DisplayFor(model => model.Name)
+                </h3>
+                <a href="mailto:@Html.DisplayFor(model => model.EMail)">
+                    @Html.DisplayFor(model => model.EMail)
+                </a>
+                <br />
+                <a href="tel:@Html.DisplayFor(model => model.Mobile)">@Html.DisplayFor(model => model.Mobile)</a>
+                <br />
+                <a href="tel:@Html.DisplayFor(model => model.Phone)">@Html.DisplayFor(model => model.Phone)</a>
+                <br />
+                <span>
+                    @Html.DisplayFor(model => model.Street)
+                </span>
+                <br />
+                <span>
+                    @Html.DisplayFor(model => model.ZIP) @Html.DisplayFor(model => model.City)
+                </span>
+                <br />
+                <span>
+                    @Html.DisplayFor(model => model.Country)
+                </span>
+            </div>
+        </div>
+        <div class="accordion" id="projectsAccordion">
+            @foreach (var year in (List<List<Enrollment>>)ViewData["Enrollments"])
+            {
+                <div class="card">
+                    <div class="card-header project-toggle" id="@year.First().Project.Date.Year">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#@year.First().Project.Date.Year" aria-expanded="true" aria-controls="@year.First().Project.Date.Year">
+                                @year.First().Project.Date.Year
+                            </button>
+                        </h5>
+                    </div>
+                    @if(firstProjectCard)
+                    {
+                            <div id="@year.First().Project.Date.Year" class="collapse show" aria-labelledby="@year.First().Project.Date.Year" data-parent="#projectsAccordion">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                        firstProjectCard = false;
+                    }
+                    else
+                    {
 
-<div>
-    <h4>Member</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.OwnerID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OwnerID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Male)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Male)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Street)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Street)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ZIP)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ZIP)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Country)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Fax)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Fax)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Mobile)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Mobile)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OtherContact)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OtherContact)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Deathday)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Deathday)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Picture)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Picture)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Languages)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Languages)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.InternationalExperiences)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.InternationalExperiences)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Education)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Education)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Activities)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Activities)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Galleries)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Galleries)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Awards)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Awards)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EMail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EMail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Locked)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Locked)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Resigned)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Resigned)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Paused)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Paused)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-    </dl>
+                            <div id="@year.First().Project.Date.Year" class="collapse" aria-labelledby="@year.First().Project.Date.Year" data-parent="#projectsAccordion">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                    }
+               </div>
+            }
+        </div>
+    </div>
+        </div>
+<div class=container-fluid>
     @Html.Partial("~/Views/Enrollments/Create.cshtml", new Enrollment())
 </div>
 @if (Model.Status != MemberStatus.Approved)
@@ -213,3 +101,4 @@
     <a asp-action="Edit" asp-route-id="@Model.MemberId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+    </main>
